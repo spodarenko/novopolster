@@ -315,7 +315,7 @@ function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClo
     }}>
       {/* top bar — mirrors the sticky header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 44, flexShrink: 0 }}>
-        <img src={logoSrc} alt="NovoPolster" style={{ height: 16, width: 172, objectFit: 'contain' }} />
+        <img src={logoSrc} alt="NovoPolster" style={{ height: 16, width: 'auto', objectFit: 'contain' }} />
         <button type="button" onClick={onClose} aria-label="Close" style={{
           width: 44, height: 44, border: 0, borderRadius: '50%', background: '#F2ECE5',
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
@@ -417,7 +417,7 @@ function Header({ logo, links = [], lang = 'DE', onLangChange, onCta, ctaLabel =
           if (window.scrollY < 40) window.location.reload();
           else window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
-        style={{ height: isMobile ? 16 : 16, width: isMobile ? 172 : 'auto', objectFit: 'contain', cursor: 'pointer' }}
+        style={{ height: 16, width: 'auto', objectFit: 'contain', cursor: 'pointer' }}
       />
       <nav style={{ display: isNarrow ? 'none' : 'flex', alignItems: 'center', gap: 'var(--space-8)' }}>
         {links.map((l) => <NavLink key={l.label} href={l.href}>{l.label}</NavLink>)}
@@ -826,7 +826,7 @@ function Footer({ t }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}><span style={heading}>{t.footer.menu}</span><div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>{menu.map(([item, href]) => <FooterLink key={item} href={href}>{item}</FooterLink>)}</div></div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}><span style={heading}>{t.footer.leistungen}</span><div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>{serviceLinks.map((item) => <ServiceLink key={item.label} item={item} />)}</div></div>
         </div>
-        <img src={base + 'assets/logo/novopolster-wordmark.svg'} alt="NovoPolster" style={{ display: 'block', width: 'auto', maxWidth: '100%', height: 'auto', maxHeight: isMobile ? 34 : isNarrow ? 44 : 72, objectFit: 'contain' }} />
+        <img src={base + 'assets/logo/novopolster-wordmark.svg'} alt="NovoPolster" style={{ display: 'block', width: '100%', height: 'auto' }} />
         <div style={{ display: 'flex', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', flexDirection: isMobile ? 'column' : 'row', flexWrap: 'wrap', gap: 16, fontFamily: 'var(--font-body)', fontSize: 14, lineHeight: '20px', color: 'rgba(19,20,19,0.64)' }}>
           <span>© 2026 NovoPolster. {t.footer.rights}</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 20 : 32, flexWrap: 'wrap' }}><span>{t.footer.createdBy} <FooterLink href="https://intelliweb.com.ua/">Intelliweb</FooterLink></span><div style={{ display: 'flex', gap: 16 }}>{social.map((name) => <IconLink key={name} href={name === 'instagram' ? 'https://www.instagram.com/novopolster' : name === 'facebook' ? 'https://www.facebook.com/share/1D6JAwE911/' : 'https://www.tiktok.com/@novo.polster'}><img src={base + `assets/icons/${name}.svg`} alt="" style={{ width: 16, height: 16 }} /></IconLink>)}</div></div>
