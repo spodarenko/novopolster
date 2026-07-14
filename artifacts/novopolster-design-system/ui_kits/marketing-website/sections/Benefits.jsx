@@ -54,15 +54,10 @@ function BenefitsSection({ t }) {
     <section id="vorteile" data-screen-label="Benefits" style={{ padding: isMobile ? '24px 16px' : isNarrow ? '28px 24px' : '32px 64px' }}>
       <window.Reveal style={{ display: 'grid', gridTemplateColumns: isNarrow ? '1fr' : '0.85fr 1.15fr', gap: 20, maxWidth: 1312, margin: '0 auto' }}>
         <window.Reveal style={{ minHeight: isMobile ? 360 : isNarrow ? 520 : 784 }}><div style={{ position: 'relative', width: '100%', height: '100%', minHeight: isMobile ? 360 : isNarrow ? 520 : 784, borderRadius: 32, overflow: 'hidden', background: '#F7F5F1' }}>
-          <video
+          <window.LoopVideo
             src="../../assets/video/why-us-video.mp4"
             poster="../../assets/images/why-us.webp"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', transform: 'scale(1.02)' }}
+            videoStyle={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', transform: 'scale(1.02)' }}
           />
         </div></window.Reveal>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>

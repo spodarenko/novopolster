@@ -26,6 +26,46 @@ function useViewport() {
 }
 window.useViewport = useViewport;
 
+/* Looping background video with a mobile play/pause control. On mobile it does
+   NOT autoplay (poster shows, preload none) so the file isn't fetched until the
+   user taps — saves bandwidth and avoids stutter on weak devices. Desktop keeps
+   silent autoplay. Renders a fragment: the parent element must be position:
+   relative so the absolute control anchors to it. */
+function LoopVideo({ src, poster, videoStyle, fit = 'cover' }) {
+  const { isMobile } = window.useViewport();
+  const ref = React.useRef(null);
+  const [playing, setPlaying] = React.useState(false);
+  const toggle = () => { const v = ref.current; if (!v) return; if (v.paused) v.play(); else v.pause(); };
+  return (
+    <React.Fragment>
+      <video
+        ref={ref} src={src} poster={poster}
+        autoPlay={!isMobile} loop muted playsInline preload={isMobile ? 'none' : 'metadata'}
+        onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}
+        style={videoStyle || { width: '100%', height: '100%', objectFit: fit, display: 'block' }}
+      />
+      {isMobile ? (
+        <button type="button" onClick={toggle} aria-label={playing ? 'Pause' : 'Play'} style={{
+          position: 'absolute', zIndex: 2,
+          ...(playing
+            ? { left: 12, bottom: 12, width: 44, height: 44 }
+            : { left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: 64, height: 64 }),
+          border: 0, borderRadius: '50%', background: 'rgba(19,20,19,0.55)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+          WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)',
+        }}>
+          {playing ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><rect x="5" y="4" width="4" height="16" rx="1" /><rect x="15" y="4" width="4" height="16" rx="1" /></svg>
+          ) : (
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z" /></svg>
+          )}
+        </button>
+      ) : null}
+    </React.Fragment>
+  );
+}
+window.LoopVideo = LoopVideo;
+
 function ProcessSteps({ steps = [] }) {
   return (
     <div style={{
