@@ -2,13 +2,50 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
+<!-- Serve the real app at the clean root URL. Every relative path below
+     (styles, bundle, section scripts, assets referenced as ../../ inside the
+     JSX) resolves against this base = the marketing-website folder, so no source
+     file needs its paths rewritten. -->
+<base href="artifacts/novopolster-design-system/ui_kits/marketing-website/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NovoPolster — Polsterreinigung München</title>
-<meta http-equiv="refresh" content="0; url=./artifacts/novopolster-design-system/ui_kits/marketing-website/index.html">
-<link rel="canonical" href="./artifacts/novopolster-design-system/ui_kits/marketing-website/index.html">
-<script>window.location.replace('./artifacts/novopolster-design-system/ui_kits/marketing-website/index.html');</script>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&display=swap">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel" src="component-overrides.jsx"></script>
+<script src="i18n.js"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<style>body{margin:0;}</style>
 </head>
 <body>
-<p>Weiterleitung zur NovoPolster-Website …
-<a href="./artifacts/novopolster-design-system/ui_kits/marketing-website/index.html">hier klicken</a>, falls nichts passiert.</p>
+<div id="root"></div>
+<script type="text/babel" src="sections/Hero.jsx"></script>
+<script type="text/babel" src="sections/Benefits.jsx"></script>
+<script type="text/babel" src="sections/Services.jsx"></script>
+<script type="text/babel" src="sections/ServicesPricing.jsx"></script>
+<script type="text/babel" src="sections/Process.jsx"></script>
+<script type="text/babel" src="sections/FAQSection.jsx"></script>
+<script type="text/babel" src="sections/ServiceArea.jsx"></script>
+<script type="text/babel" src="sections/ContactSection.jsx"></script>
+<script type="text/babel" src="sections/FinalCTA.jsx"></script>
+<script type="text/babel" src="sections/WhatsAppFloat.jsx"></script>
+<script type="text/babel" src="App.jsx"></script>
+<!-- With <base> set, in-page "#anchor" links would otherwise navigate to the
+     base document. Intercept them and smooth-scroll instead. -->
+<script>
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a) return;
+  e.preventDefault();
+  var id = a.getAttribute('href').slice(1);
+  var el = id && document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+});
+</script>
 </body>
 </html>
