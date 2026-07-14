@@ -37,9 +37,9 @@ function FinalCTASection({ t }) {
     <section data-screen-label="CTA" style={{ padding: isMobile ? 16 : 32, background: 'var(--color-bg)' }}>
       <window.Reveal style={{
         maxWidth: 1376, minHeight: isMobile ? 360 : 412, margin: '0 auto', boxSizing: 'border-box', borderRadius: 24,
-        padding: isMobile ? '48px 20px' : '64px 32px', background: 'var(--color-brand)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: isMobile ? '48px 16px' : '64px 32px', background: 'var(--color-brand)', display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <div style={{ maxWidth: 680, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32, textAlign: 'center' }}>
+        <div style={{ maxWidth: 680, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 32, textAlign: 'center' }}>
           <window.Reveal><div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
             <h2 style={{ margin: 0, maxWidth: 680, fontFamily: 'var(--font-display)', fontSize: isMobile ? 36 : 48, lineHeight: isMobile ? '40px' : '54px', fontWeight: 800, textTransform: 'uppercase', color: 'var(--color-text-inverse)' }}>
               {t.finalCta.title}
@@ -48,7 +48,7 @@ function FinalCTASection({ t }) {
               {t.finalCta.subhead}
             </p>
           </div></window.Reveal>
-          <window.Reveal delay={120}><div style={{ width: 'min(582px, 100%)', display: 'flex', justifyContent: 'center', gap: 8, flexDirection: isMobile ? 'column' : 'row', flexWrap: 'wrap' }}>
+          <window.Reveal delay={120} style={{ alignSelf: 'stretch' }}><div style={{ width: isMobile ? '100%' : 'min(582px, 100%)', margin: '0 auto', display: 'flex', justifyContent: 'center', gap: 8, flexDirection: isMobile ? 'column' : 'row', flexWrap: 'wrap' }}>
             <CTAButton type="inverse" href="https://wa.me/491605712229" icon="whatsapp">{t.hero.ctaPrimary}</CTAButton>
             <CTAButton type="transparency" onClick={scrollToForm} icon="phone">{t.hero.ctaSecondary}</CTAButton>
           </div></window.Reveal>
