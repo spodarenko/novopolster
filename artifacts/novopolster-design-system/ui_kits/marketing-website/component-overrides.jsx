@@ -237,6 +237,116 @@ function NavLink({ href, children }) {
   );
 }
 
+const NP_LANGS = [
+  { code: 'DE', label: 'Deutsch' },
+  { code: 'EN', label: 'English' },
+  { code: 'UA', label: 'Українська' },
+  { code: 'IT', label: 'Italiano' },
+];
+
+/* Fullscreen mobile/tablet menu. Portalled to <body> so it escapes the
+   sticky header's z=50 stacking context and covers the WhatsApp float (z=100).
+   Nav links up top; language select sits directly above the CTA at the bottom,
+   both sized to match the landing-page pill buttons for consistency. */
+function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClose, base }) {
+  const [langOpen, setLangOpen] = React.useState(false);
+  const current = NP_LANGS.find((l) => l.code === lang) || NP_LANGS[0];
+
+  React.useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
+  // Shared shape/size — the same pill footprint the landing CTAs use.
+  const pill = {
+    width: '100%', boxSizing: 'border-box', minHeight: 56,
+    display: 'flex', alignItems: 'center', gap: 10, padding: '0 24px',
+    fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-lg)', lineHeight: '28px',
+    textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)',
+    borderRadius: 'var(--radius-pill)', border: '2px solid transparent', cursor: 'pointer', textDecoration: 'none',
+  };
+
+  return ReactDOM.createPortal(
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 200, height: '100dvh',
+      background: 'var(--color-bg)', display: 'flex', flexDirection: 'column',
+      padding: '10px 16px calc(20px + env(safe-area-inset-bottom))', boxSizing: 'border-box',
+    }}>
+      {/* top bar — mirrors the sticky header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 44, flexShrink: 0 }}>
+        <img src={logoSrc} alt="NovoPolster" style={{ height: 16, width: 172, objectFit: 'contain' }} />
+        <button type="button" onClick={onClose} aria-label="Close" style={{
+          width: 44, height: 44, border: 0, borderRadius: '50%', background: '#F2ECE5',
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+        }}>
+          <span style={{ position: 'relative', width: 18, height: 18, display: 'block' }}>
+            <span style={{ position: 'absolute', left: 0, top: 8, width: 18, height: 2, background: 'var(--color-text-primary)', borderRadius: 2, transform: 'rotate(45deg)' }} />
+            <span style={{ position: 'absolute', left: 0, top: 8, width: 18, height: 2, background: 'var(--color-text-primary)', borderRadius: 2, transform: 'rotate(-45deg)' }} />
+          </span>
+        </button>
+      </div>
+
+      {/* nav links */}
+      <nav style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 28 }}>
+        {links.map((l) => (
+          <a key={l.label} href={l.href} onClick={onClose} style={{
+            fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 28, lineHeight: '44px',
+            textTransform: 'uppercase', textDecoration: 'none', color: 'var(--color-text-primary)',
+          }}>{l.label}</a>
+        ))}
+      </nav>
+
+      <div style={{ flex: 1 }} />
+
+      {/* bottom block: language select above the CTA */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flexShrink: 0 }}>
+        <div style={{ position: 'relative', width: '100%' }}>
+          {langOpen ? (
+            <div style={{
+              position: 'absolute', bottom: 'calc(100% + 8px)', left: 0, right: 0,
+              background: 'var(--color-surface)', border: '1px solid var(--color-border)',
+              borderRadius: 20, boxShadow: 'var(--shadow-md)', overflow: 'hidden', padding: 6,
+            }}>
+              {NP_LANGS.map((l) => (
+                <button key={l.code} type="button" onClick={() => { onLangChange && onLangChange(l.code); setLangOpen(false); }} style={{
+                  width: '100%', boxSizing: 'border-box', minHeight: 48, border: 0, borderRadius: 14,
+                  display: 'flex', alignItems: 'center', gap: 12, padding: '0 18px', cursor: 'pointer',
+                  fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-base)',
+                  color: l.code === lang ? 'var(--color-brand)' : 'var(--color-text-primary)',
+                  background: l.code === lang ? 'var(--color-brand-subtle)' : 'transparent',
+                }}>
+                  <span style={{ width: 34, textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)' }}>{l.code}</span>
+                  <span style={{ opacity: 0.85 }}>{l.label}</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
+          <button type="button" onClick={() => setLangOpen((o) => !o)} style={{
+            ...pill, justifyContent: 'space-between',
+            background: 'var(--color-surface)', color: 'var(--color-text-primary)', borderColor: 'var(--color-border-strong)',
+          }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+              <img src={base + 'assets/icons/globe.svg'} alt="" style={{ width: 20, height: 20 }} />
+              {current.label}
+            </span>
+            <img src={base + 'assets/icons/chevron-down.svg'} alt="" style={{ width: 12, height: 12, transform: langOpen ? 'rotate(180deg)' : 'none', transition: 'transform var(--duration-base) var(--ease-standard)' }} />
+          </button>
+        </div>
+
+        <button type="button" onClick={() => { onClose(); onCta && onCta(); }} style={{
+          ...pill, justifyContent: 'center',
+          background: 'var(--color-brand)', color: 'var(--color-text-inverse)', borderColor: 'var(--color-brand)',
+        }}>
+          <img src={base + 'assets/icons/phone.svg'} alt="" style={{ width: 20, height: 20, filter: 'brightness(0) invert(1)' }} />
+          {ctaLabel}
+        </button>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
 function Header({ logo, links = [], lang = 'DE', onLangChange, onCta, ctaLabel = 'Termin anfragen' }) {
   const { LanguageSwitcher, Button } = window.NovoPolsterDesignSystem_1b2f21;
   const { isNarrow, isMobile } = window.useViewport();
@@ -249,6 +359,8 @@ function Header({ logo, links = [], lang = 'DE', onLangChange, onCta, ctaLabel =
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  // Close the mobile menu if the viewport grows back to desktop.
+  React.useEffect(() => { if (!isNarrow && menuOpen) setMenuOpen(false); }, [isNarrow, menuOpen]);
 
   return (
     <header style={{
@@ -270,19 +382,20 @@ function Header({ logo, links = [], lang = 'DE', onLangChange, onCta, ctaLabel =
       <nav style={{ display: isNarrow ? 'none' : 'flex', alignItems: 'center', gap: 'var(--space-8)' }}>
         {links.map((l) => <NavLink key={l.label} href={l.href}>{l.label}</NavLink>)}
       </nav>
-      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 2 : 4, position: 'relative', flexShrink: 0 }}>
-        <LanguageSwitcher value={lang} onChange={onLangChange} tone="light" />
-        {isMobile ? null : (
-          <Button
-            variant="primary" size="sm" radius="var(--radius-pill)"
-            icon={base + 'assets/icons/phone.svg'} iconPosition="left"
-            onClick={onCta}
-          >{ctaLabel}</Button>
-        )}
-        {isNarrow ? (
+      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 4, position: 'relative', flexShrink: 0 }}>
+        {!isNarrow ? (
+          <React.Fragment>
+            <LanguageSwitcher value={lang} onChange={onLangChange} tone="light" />
+            <Button
+              variant="primary" size="sm" radius="var(--radius-pill)"
+              icon={base + 'assets/icons/phone.svg'} iconPosition="left"
+              onClick={onCta}
+            >{ctaLabel}</Button>
+          </React.Fragment>
+        ) : (
           <button
             type="button"
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={() => setMenuOpen(true)}
             aria-label="Menu"
             style={{
               width: 44, height: 44, border: 0, borderRadius: '50%', background: '#F2ECE5',
@@ -295,29 +408,14 @@ function Header({ logo, links = [], lang = 'DE', onLangChange, onCta, ctaLabel =
               <span style={{ position: 'absolute', left: 0, top: 10, width: 18, height: 2, background: 'var(--color-text-primary)', borderRadius: 2 }} />
             </span>
           </button>
-        ) : null}
-        {isNarrow && menuOpen ? (
-          <div style={{
-            position: 'absolute', top: 'calc(100% + 8px)', right: 0, width: isMobile ? 'calc(100vw - 32px)' : 260,
-            background: '#F7F5F1', borderRadius: 18, boxShadow: 'var(--shadow-md)', padding: 16,
-            display: 'flex', flexDirection: 'column', gap: 12, boxSizing: 'border-box',
-          }}>
-            {links.map((l) => (
-              <a key={l.label} href={l.href} onClick={() => setMenuOpen(false)} style={{
-                fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, lineHeight: '24px',
-                textTransform: 'uppercase', textDecoration: 'none', color: 'var(--color-text-primary)',
-              }}>{l.label}</a>
-            ))}
-            {isMobile ? (
-              <button type="button" onClick={() => { setMenuOpen(false); onCta && onCta(); }} style={{
-                marginTop: 4, minHeight: 44, border: 0, borderRadius: 'var(--radius-pill)', background: 'var(--color-brand)',
-                color: 'var(--color-text-inverse)', fontFamily: 'var(--font-display)', fontWeight: 700,
-                textTransform: 'uppercase',
-              }}>{ctaLabel}</button>
-            ) : null}
-          </div>
-        ) : null}
+        )}
       </div>
+      {isNarrow && menuOpen ? (
+        <MobileMenu
+          logoSrc={logoSrc} links={links} lang={lang} onLangChange={onLangChange}
+          onCta={onCta} ctaLabel={ctaLabel} onClose={() => setMenuOpen(false)} base={base}
+        />
+      ) : null}
     </header>
   );
 }
@@ -329,12 +427,7 @@ function LanguageSwitcher({ value = 'DE', onChange, tone = 'light' }) {
   const { isMobile } = window.useViewport();
   const rootRef = React.useRef(null);
   const base = window.NP_ASSETS_BASE || '';
-  const langs = [
-    { code: 'DE', label: 'Deutsch' },
-    { code: 'EN', label: 'English' },
-    { code: 'UA', label: 'Українська' },
-    { code: 'IT', label: 'Italiano' },
-  ];
+  const langs = NP_LANGS;
   const dark = tone === 'dark';
 
   React.useEffect(() => {
