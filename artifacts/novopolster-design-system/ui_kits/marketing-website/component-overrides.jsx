@@ -47,9 +47,7 @@ function LoopVideo({ src, poster, videoStyle, fit = 'cover' }) {
       {isMobile ? (
         <button type="button" onClick={toggle} aria-label={playing ? 'Pause' : 'Play'} style={{
           position: 'absolute', zIndex: 2,
-          ...(playing
-            ? { left: 12, bottom: 12, width: 44, height: 44 }
-            : { left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: 64, height: 64 }),
+          left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: 60, height: 60,
           border: 0, borderRadius: '50%', background: 'rgba(19,20,19,0.55)',
           display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
           WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)',
