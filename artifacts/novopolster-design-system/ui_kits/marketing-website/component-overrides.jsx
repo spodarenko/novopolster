@@ -661,37 +661,32 @@ function PricingTabs({ categories = [], defaultTab = 0, ctaLabel = 'Anfragen', p
   return (
     <div style={{ fontFamily: 'var(--font-body)' }}>
       {isMobile ? (
-        <div style={{ position: 'relative', marginBottom: 28, marginLeft: -16, marginRight: -16 }}>
-          {/* edge fades signal there's more to scroll (color matches the card bg) */}
-          <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 28, background: 'linear-gradient(90deg, #F2ECE5, rgba(242,236,229,0))', pointerEvents: 'none', zIndex: 2 }} />
-          <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: 28, background: 'linear-gradient(270deg, #F2ECE5, rgba(242,236,229,0))', pointerEvents: 'none', zIndex: 2 }} />
-          <div ref={scrollRef} className="np-tabscroll" style={{
-            display: 'flex', gap: 8, overflowX: 'auto', scrollSnapType: 'x proximity',
-            WebkitOverflowScrolling: 'touch', padding: '4px 16px',
-          }}>
-            {categories.map((c, i) => {
-              const isActive = i === active;
-              return (
-                <button
-                  key={c.label}
-                  ref={isActive ? activeRef : null}
-                  onClick={() => setActive(i)}
-                  style={{
-                    flexShrink: 0, scrollSnapAlign: 'center',
-                    fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, lineHeight: '24px',
-                    textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)', whiteSpace: 'nowrap',
-                    padding: '11px 20px', cursor: 'pointer', borderRadius: 'var(--radius-pill)', border: '2px solid transparent',
-                    background: isActive ? 'var(--color-brand)' : 'var(--color-surface)',
-                    color: isActive ? 'var(--color-text-inverse)' : 'var(--color-text-primary)',
-                    boxShadow: isActive ? 'none' : 'var(--shadow-xs)',
-                    transition: 'background 200ms ease, color 200ms ease',
-                  }}
-                >
-                  {c.label}
-                </button>
-              );
-            })}
-          </div>
+        <div ref={scrollRef} className="np-tabscroll" style={{
+          display: 'flex', gap: 4, overflowX: 'auto', scrollSnapType: 'x proximity', WebkitOverflowScrolling: 'touch',
+          background: 'var(--color-bg)', borderRadius: 'var(--radius-pill)', padding: 8,
+          boxShadow: 'var(--shadow-xs)', marginBottom: 28,
+        }}>
+          {categories.map((c, i) => {
+            const isActive = i === active;
+            return (
+              <button
+                key={c.label}
+                ref={isActive ? activeRef : null}
+                onClick={() => setActive(i)}
+                style={{
+                  flexShrink: 0, scrollSnapAlign: 'center',
+                  fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, lineHeight: '24px',
+                  textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)', whiteSpace: 'nowrap',
+                  padding: '8px 18px', cursor: 'pointer', borderRadius: 'var(--radius-lg)', border: 'none',
+                  background: isActive ? '#E9F7F4' : 'transparent',
+                  color: isActive ? 'var(--color-brand)' : 'var(--color-text-primary)',
+                  transition: `background var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard)`,
+                }}
+              >
+                {c.label}
+              </button>
+            );
+          })}
         </div>
       ) : (
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--space-16)' }}>
