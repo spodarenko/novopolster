@@ -291,8 +291,8 @@ function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClo
       <nav style={{ display: 'flex', flexDirection: 'column', gap: 4, marginTop: 28 }}>
         {links.map((l) => (
           <a key={l.label} href={l.href} onClick={onClose} style={{
-            fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 28, lineHeight: '44px',
-            textTransform: 'uppercase', textDecoration: 'none', color: 'var(--color-text-primary)',
+            fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-lg)', lineHeight: '40px',
+            letterSpacing: 'var(--tracking-wide)', textTransform: 'uppercase', textDecoration: 'none', color: 'var(--color-text-primary)',
           }}>{l.label}</a>
         ))}
       </nav>
@@ -305,14 +305,14 @@ function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClo
           {langOpen ? (
             <div style={{
               position: 'absolute', bottom: 'calc(100% + 8px)', left: 0, right: 0,
-              background: 'var(--color-surface)', border: '1px solid var(--color-border)',
+              background: 'var(--color-surface)', border: 0,
               borderRadius: 20, boxShadow: 'var(--shadow-md)', overflow: 'hidden', padding: 6,
             }}>
               {NP_LANGS.map((l) => (
                 <button key={l.code} type="button" onClick={() => { onLangChange && onLangChange(l.code); setLangOpen(false); }} style={{
-                  width: '100%', boxSizing: 'border-box', minHeight: 48, border: 0, borderRadius: 14,
+                  width: '100%', boxSizing: 'border-box', minHeight: 56, border: 0, borderRadius: 14,
                   display: 'flex', alignItems: 'center', gap: 12, padding: '0 18px', cursor: 'pointer',
-                  fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-base)',
+                  fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'var(--text-lg)',
                   color: l.code === lang ? 'var(--color-brand)' : 'var(--color-text-primary)',
                   background: l.code === lang ? 'var(--color-brand-subtle)' : 'transparent',
                 }}>
@@ -324,7 +324,7 @@ function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClo
           ) : null}
           <button type="button" onClick={() => setLangOpen((o) => !o)} style={{
             ...pill, justifyContent: 'space-between',
-            background: 'var(--color-surface)', color: 'var(--color-text-primary)', borderColor: 'var(--color-border-strong)',
+            background: '#F2ECE5', color: 'var(--color-text-primary)', borderColor: 'transparent',
           }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
               <img src={base + 'assets/icons/globe.svg'} alt="" style={{ width: 20, height: 20 }} />
