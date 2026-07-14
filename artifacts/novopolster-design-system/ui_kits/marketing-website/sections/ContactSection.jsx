@@ -242,13 +242,13 @@ function ContactSection({ t }) {
                 </div>
               </div>
 
-              <label style={{ display: 'flex', gap: 12, alignItems: 'center', color: 'var(--color-text-muted)' }}>
+              <label style={{ display: 'flex', gap: 12, alignItems: 'flex-start', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
                 <input
                   type="checkbox"
                   required
                   checked={consentAccepted}
                   onChange={(e) => setConsentAccepted(e.target.checked)}
-                  style={{ width: 20, height: 20, margin: 2, accentColor: 'var(--color-brand)' }}
+                  style={{ width: 26, height: 26, marginTop: 0, flexShrink: 0, accentColor: 'var(--color-brand)', cursor: 'pointer' }}
                 />
                 <span style={{ fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: '22px' }}>
                   {t.contact.consentPrefix || 'Я погоджуюся з обробкою персональних даних згідно з'} <a href="#" style={{ color: 'var(--color-brand)', textDecoration: 'underline' }}>{t.contact.consentLink || 'Політикою конфіденційності'}</a>
