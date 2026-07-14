@@ -18,7 +18,7 @@ function SectionHeading({ eyebrow, title, subhead, badge }) {
           <span style={{ width: 24, height: 1, background: 'var(--color-brand)' }} />{eyebrow}
         </div>
       )}
-      <h2 style={{ fontSize: 'var(--text-4xl)', color: 'var(--color-text-primary)', textTransform: 'uppercase' }}>{title}</h2>
+      <h2 style={{ fontSize: 'clamp(2rem, 4vw, 48px)', lineHeight: 1.125, letterSpacing: '-0.02em', color: 'var(--color-text-primary)', textTransform: 'uppercase' }}>{title}</h2>
       {subhead ? <p style={{ margin: 0, fontSize: 'var(--text-base)', color: 'var(--color-text-secondary)' }}>{subhead}</p> : null}
     </div>
   );
