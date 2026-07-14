@@ -35,7 +35,7 @@ function ProcessSection({ t }) {
             <a
               href="https://wa.me/491605712229"
               style={{
-                display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', justifyContent: 'center', gap: 8,
+                display: 'inline-flex', alignSelf: isMobile ? 'stretch' : 'flex-start', width: isMobile ? '100%' : 'auto', boxSizing: 'border-box', alignItems: 'center', justifyContent: 'center', gap: 8,
                 background: 'var(--color-brand)', color: 'var(--color-text-inverse)',
                 fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 20, lineHeight: '28px',
                 textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)',
