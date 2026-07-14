@@ -1,0 +1,102 @@
+/* ============================================================
+   NovoPolster — Color tokens
+   Client-specified brand colors: "чорний і ментоловий" (black +
+   menthol) — this ramp's --teal-500 IS the menthol, sampled
+   directly from the brand mark. Ink is the near-black "P".
+
+   Explicit client constraint (design-brief.md): do NOT saturate
+   layouts in black+menthol together — that reads cheap/overloaded.
+   In practice: ink is a text/accent color, menthol is reserved for
+   the WhatsApp CTA and small highlights, and the dominant surface
+   is always a neutral light background (off-white/cream), never a
+   solid black or solid menthol section covering most of a screen.
+
+   Neutrals carry a faint warm cast (never cool gray) to sit well
+   next to warm textile/leather photography.
+   ============================================================ */
+
+:root {
+  /* ---- Brand teal ramp ---- */
+  --teal-50:  #EAF7F4;
+  --teal-100: #CFEEE7;
+  --teal-200: #A0DDD1;
+  --teal-300: #6BC7B7;
+  --teal-400: #3BB29F;
+  --teal-500: #0CA194; /* brand primary — sampled from mark */
+  --teal-600: #0B8A7F;
+  --teal-700: #0A6F68;
+  --teal-800: #095650;
+  --teal-900: #083F3B;
+
+  /* ---- Neutrals (warm-cast, not blue-gray) ---- */
+  --neutral-0:   #FFFFFF;
+  --neutral-25:  #FDFCFA;
+  --neutral-50:  #F7F5F1;
+  --neutral-100: #EFEAE3;
+  --neutral-200: #E1DAD0;
+  --neutral-300: #C8BEB0;
+  --neutral-400: #A69C8B;
+  --neutral-500: #857A6A;
+  --neutral-600: #665D50;
+  --neutral-700: #4A423A;
+  --neutral-800: #2E2925;
+  --neutral-900: #191613;
+  --neutral-950: #131413; /* ink — sampled from mark */
+
+  /* ---- Functional (used sparingly: form + status feedback) ---- */
+  --green-600: #1F8A5B;   /* success — distinct from brand teal */
+  --green-100: #DFF3E8;
+  --amber-600: #B7791F;   /* warning */
+  --amber-100: #FBEFD9;
+  --red-600:   #C0392B;   /* danger / error */
+  --red-100:   #FBE4E1;
+
+  /* ---- WhatsApp (external brand — primary contact channel) ---- */
+  --whatsapp-500: #24D366;
+  --whatsapp-600: #1DA851;
+
+  /* ==========================================================
+     Semantic aliases — reference these in product UI, not the
+     raw ramps above.
+     ========================================================== */
+
+  /* Surfaces */
+  --color-bg:            var(--neutral-25);   /* page background, warm off-white */
+  --color-bg-sunken:     var(--neutral-50);   /* section alternation */
+  --color-surface:       var(--neutral-0);    /* cards, panels, header */
+  --color-surface-ink:   var(--neutral-950);  /* dark sections / footer */
+
+  /* Borders */
+  --color-border:        var(--neutral-200);
+  --color-border-strong: var(--neutral-300);
+  --color-border-on-ink: rgba(255,255,255,0.12);
+
+  /* Text */
+  --color-text-primary:   var(--neutral-950);
+  --color-text-secondary: var(--neutral-600);
+  --color-text-muted:     var(--neutral-500);
+  --color-text-inverse:   var(--neutral-0);
+  --color-text-inverse-muted: rgba(255,255,255,0.66);
+
+  /* Brand */
+  --color-brand:         var(--teal-500);
+  --color-brand-hover:   var(--teal-600);
+  --color-brand-active:  var(--teal-700);
+  --color-brand-subtle:  var(--teal-50);
+  --color-brand-border:  var(--teal-200);
+
+  /* Status */
+  --color-success:        var(--green-600);
+  --color-success-subtle: var(--green-100);
+  --color-warning:        var(--amber-600);
+  --color-warning-subtle: var(--amber-100);
+  --color-danger:         var(--red-600);
+  --color-danger-subtle:  var(--red-100);
+
+  /* Contact channel */
+  --color-whatsapp:       var(--whatsapp-500);
+  --color-whatsapp-hover: var(--whatsapp-600);
+
+  /* Focus ring */
+  --color-focus-ring: var(--teal-400);
+}

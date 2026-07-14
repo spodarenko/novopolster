@@ -1,0 +1,50 @@
+/* ============================================================
+   NovoPolster — Typography tokens
+   Display (headings): Exo 2 — geometric sans with full Latin +
+   Cyrillic + Greek coverage, loaded via Google Fonts
+   (ui_kits/marketing-website/index.html), weights 400–900.
+   Unlike the earlier Changa One pick, Exo 2 covers Cyrillic
+   natively, so DE/EN/UA/IT headings all render in the same face —
+   no per-glyph fallback needed.
+   Body: Golos Text — geometric, wide-set sans with full Latin +
+   Cyrillic (no fallback-font flash for Ukrainian copy).
+   ============================================================ */
+
+:root {
+  --font-display: 'Exo 2', system-ui, sans-serif;
+  --font-body: 'Golos Text', system-ui, sans-serif;
+
+  /* ---- Sizes — base is 17px (slightly above the usual 16px:
+     German compound words run long, and this is a site read by
+     an older/family audience too) ---- */
+  --text-xs:   13px;
+  --text-sm:   15px;
+  --text-base: 17px;
+  --text-lg:   20px;
+  --text-xl:   24px;
+  --text-2xl:  30px;
+  --text-3xl:  38px;
+  --text-4xl:  48px;
+  --text-5xl:  60px;
+  --text-6xl:  74px;
+
+  /* ---- Line-heights ---- */
+  --leading-tight:   1.08;
+  --leading-snug:    1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* ---- Letter-spacing ---- */
+  --tracking-tight:  -0.02em; /* large display headlines */
+  --tracking-normal: 0em;
+  --tracking-wide:   0.04em;  /* small uppercase labels/eyebrows */
+  --tracking-widest: 0.12em;  /* mirrors the logo's "— WORDMARK —" spacing */
+
+  /* ---- Weights ---- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
+  --weight-black:     900;
+}

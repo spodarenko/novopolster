@@ -1,0 +1,19 @@
+<!-- @dsCard group="Colors" viewport="700x180" name="Surface & text roles" subtitle="Semantic aliases used across the UI kit" -->
+<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="../styles.css"><style>
+  body{margin:0;height:180px;background:var(--color-bg);font-family:var(--font-body);display:flex;padding:16px;gap:12px;box-sizing:border-box;}
+  .card{flex:1;border-radius:var(--radius-md);border:1px solid var(--color-border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;}
+  .label{font-weight:600;}
+  .sub{color:var(--color-text-muted);font-size:11px;}
+  .surface{background:var(--color-surface);}
+  .sunken{background:var(--color-bg-sunken);}
+  .ink{background:var(--color-surface-ink);color:#fff;}
+  .ink .sub{color:var(--color-text-inverse-muted);}
+</style></head>
+<body>
+  <div class="card surface"><div class="label">Surface</div><div class="sub">--color-surface</div></div>
+  <div class="card sunken"><div class="label">Sunken</div><div class="sub">--color-bg-sunken</div></div>
+  <div class="card ink"><div class="label">Ink</div><div class="sub">--color-surface-ink</div></div>
+  <div class="card surface"><div class="label" style="color:var(--color-text-primary)">Primary text</div><div class="sub">--color-text-primary</div></div>
+  <div class="card surface"><div class="label" style="color:var(--color-text-secondary)">Secondary</div><div class="sub">--color-text-secondary</div></div>
+</body></html>

@@ -1,0 +1,54 @@
+<!-- @dsCard group="Components" viewport="700x640" name="Marketing — Service, Pricing tabs, Process, FAQ, Placeholder" subtitle="Services grid, tabbed pricing, 3-step process, FAQ, honest content-pending panel" -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>body{margin:0;background:var(--color-bg-sunken);font-family:var(--font-body);padding:20px;}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+window.NP_ASSETS_BASE = '../../';
+const { ServiceCard, PricingTabs, ProcessSteps, FAQAccordion, PlaceholderPanel, WhatsAppButton } = window.NovoPolsterDesignSystem_1b2f21;
+function Demo() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
+        <ServiceCard icon="../../assets/icons/sofa.svg" title="Sofa-Reinigung" description="Tiefenreinigung für Stoff & Leder, vor Ort." priceFrom="120 €" />
+        <ServiceCard icon="../../assets/icons/bed.svg" title="Matratzen-Reinigung" description="Milben & Hausstaub, allergikerfreundlich." priceFrom="75 €" />
+        <ServiceCard icon="../../assets/icons/car.svg" title="Autositze" description="Leder & Stoff, auch mobil beim Kunden." priceFrom="105 €" />
+      </div>
+      <div style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-lg)', padding: 20 }}>
+        <PricingTabs categories={[
+          { label: 'Sofa', rows: [
+            { label: '2-Sitzer', from: '120 €', to: '170 €' },
+            { label: 'Ecksofa', from: '220 €', to: '340 €' },
+          ]},
+          { label: 'Auto', rows: [
+            { label: '5 Sitze', from: '105 €' },
+            { label: 'Autoaufbereitung', from: '500 €', to: '800 € (VB)' },
+          ], callout: 'Yachten/Flugzeuge außerhalb des 30-km-Radius auf Anfrage.' },
+        ]} />
+      </div>
+      <ProcessSteps steps={[
+        { title: 'Foto & Beschreibung', description: 'Per WhatsApp oder Anruf.', cta: <WhatsAppButton floating={false} /> },
+        { title: 'Preis & Termin', description: 'Sie erhalten eine erste Preiseinschätzung als Von–bis-Bereich und einen passenden Terminvorschlag — schnell, unverbindlich und ohne versteckte Kosten.' },
+        { title: 'Reinigung vor Ort', description: 'Wir reinigen direkt bei Ihnen zu Hause — im Umkreis von 30 km um München, ohne dass Sie Ihre Möbel transportieren müssen.' },
+      ]} />
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <FAQAccordion items={[
+          { question: 'Ist die Chemie sicher für Kinder und Tiere?', answer: 'Ja, wir verwenden Mittel, die für Haushalte mit Kindern und Haustieren geeignet sind.' },
+        ]} defaultOpen={0} />
+        <PlaceholderPanel icon="../../assets/icons/image.svg" message="Fotos und Bewertungen folgen, sobald der Kunde Material bereitstellt." minHeight={140} />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

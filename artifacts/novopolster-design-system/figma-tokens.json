@@ -1,0 +1,99 @@
+{
+  "$metadata": {
+    "tokenSetOrder": ["primitives", "semantic"]
+  },
+  "$themes": [],
+  "primitives": {
+    "teal": {
+      "50":  { "value": "#EAF7F4", "type": "color" },
+      "100": { "value": "#CFEEE7", "type": "color" },
+      "200": { "value": "#A0DDD1", "type": "color" },
+      "300": { "value": "#6BC7B7", "type": "color" },
+      "400": { "value": "#3BB29F", "type": "color" },
+      "500": { "value": "#0CA194", "type": "color" },
+      "600": { "value": "#0B8A7F", "type": "color" },
+      "700": { "value": "#0A6F68", "type": "color" },
+      "800": { "value": "#095650", "type": "color" },
+      "900": { "value": "#083F3B", "type": "color" }
+    },
+    "grey": {
+      "0":    { "value": "#FFFFFF", "type": "color" },
+      "25":   { "value": "#FDFCFA", "type": "color" },
+      "50":   { "value": "#F7F5F1", "type": "color" },
+      "100":  { "value": "#EFEAE3", "type": "color" },
+      "200":  { "value": "#E1DAD0", "type": "color" },
+      "300":  { "value": "#C8BEB0", "type": "color" },
+      "400":  { "value": "#A69C8B", "type": "color" },
+      "500":  { "value": "#857A6A", "type": "color" },
+      "600":  { "value": "#665D50", "type": "color" },
+      "700":  { "value": "#4A423A", "type": "color" },
+      "800":  { "value": "#2E2925", "type": "color" },
+      "900":  { "value": "#191613", "type": "color" },
+      "950":  { "value": "#131413", "type": "color" },
+      "1000": { "value": "#000000", "type": "color" }
+    },
+    "green":  { "100": { "value": "#DFF3E8", "type": "color" }, "600": { "value": "#1F8A5B", "type": "color" } },
+    "amber":  { "100": { "value": "#FBEFD9", "type": "color" }, "600": { "value": "#B7791F", "type": "color" } },
+    "red":    { "100": { "value": "#FBE4E1", "type": "color" }, "600": { "value": "#C0392B", "type": "color" } },
+    "whatsapp": { "500": { "value": "#25D366", "type": "color" }, "600": { "value": "#1DA851", "type": "color" } },
+    "alpha": {
+      "ink": {
+        "70": { "value": "rgba(19,20,19,0.70)", "type": "color" },
+        "64": { "value": "rgba(19,20,19,0.64)", "type": "color" },
+        "60": { "value": "rgba(19,20,19,0.60)", "type": "color" }
+      },
+      "white": {
+        "66": { "value": "rgba(255,255,255,0.66)", "type": "color" },
+        "12": { "value": "rgba(255,255,255,0.12)", "type": "color" }
+      }
+    }
+  },
+  "semantic": {
+    "color": {
+      "bg": {
+        "default": { "value": "{grey.25}", "type": "color" },
+        "sunken":  { "value": "{grey.50}", "type": "color" }
+      },
+      "surface": {
+        "default": { "value": "{grey.0}", "type": "color" },
+        "ink":     { "value": "{grey.950}", "type": "color" }
+      },
+      "border": {
+        "default": { "value": "{grey.200}", "type": "color" },
+        "strong":  { "value": "{grey.300}", "type": "color" },
+        "on-ink":  { "value": "{alpha.white.12}", "type": "color" }
+      },
+      "text": {
+        "primary":        { "value": "{grey.950}", "type": "color" },
+        "secondary":      { "value": "{grey.600}", "type": "color" },
+        "muted":          { "value": "{grey.500}", "type": "color" },
+        "inverse":        { "value": "{grey.0}", "type": "color" },
+        "inverse-muted":  { "value": "{alpha.white.66}", "type": "color" }
+      },
+      "brand": {
+        "primary": { "value": "{teal.500}", "type": "color" },
+        "hover":   { "value": "{teal.600}", "type": "color" },
+        "active":  { "value": "{teal.700}", "type": "color" },
+        "tint":    { "value": "{teal.50}", "type": "color" },
+        "border":  { "value": "{teal.200}", "type": "color" }
+      },
+      "success": {
+        "default": { "value": "{green.600}", "type": "color" },
+        "subtle":  { "value": "{green.100}", "type": "color" }
+      },
+      "warning": {
+        "default": { "value": "{amber.600}", "type": "color" },
+        "subtle":  { "value": "{amber.100}", "type": "color" }
+      },
+      "danger": {
+        "default": { "value": "{red.600}", "type": "color" },
+        "subtle":  { "value": "{red.100}", "type": "color" }
+      },
+      "whatsapp": {
+        "default": { "value": "{whatsapp.500}", "type": "color" },
+        "hover":   { "value": "{whatsapp.600}", "type": "color" }
+      },
+      "focus-ring": { "value": "{teal.400}", "type": "color" }
+    }
+  }
+}

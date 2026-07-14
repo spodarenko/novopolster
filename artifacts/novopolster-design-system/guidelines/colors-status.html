@@ -1,0 +1,16 @@
+<!-- @dsCard group="Colors" viewport="700x140" name="Status colors" subtitle="Success / warning / danger — used only for form + booking feedback" -->
+<!DOCTYPE html>
+<html><head><link rel="stylesheet" href="../styles.css"><style>
+  body{margin:0;height:140px;background:var(--color-bg);font-family:var(--font-body);display:flex;align-items:center;gap:16px;padding:0 20px;box-sizing:border-box;}
+  .pill{flex:1;border-radius:var(--radius-md);padding:14px 16px;font-size:var(--text-sm);font-weight:500;display:flex;align-items:center;gap:8px;}
+  .pill img{width:16px;height:16px;}
+  .success{background:var(--color-success-subtle);color:var(--green-600);}
+  .warning{background:var(--color-warning-subtle);color:var(--amber-600);}
+  .danger{background:var(--color-danger-subtle);color:var(--red-600);}
+  .success img{filter:invert(30%) sepia(90%) saturate(400%) hue-rotate(100deg);}
+</style></head>
+<body>
+  <div class="pill success"><img src="../assets/icons/check-circle-2.svg">Termin bestätigt</div>
+  <div class="pill warning"><img src="../assets/icons/clock.svg">Nur noch 2 Slots</div>
+  <div class="pill danger"><img src="../assets/icons/x.svg">Ungültige PLZ</div>
+</body></html>
