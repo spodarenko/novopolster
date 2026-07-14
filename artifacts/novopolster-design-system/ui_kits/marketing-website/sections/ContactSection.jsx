@@ -230,7 +230,7 @@ function ContactSection({ t }) {
                           aria-label={t.contact.photoPlaceholder}
                           style={{
                             aspectRatio: '1', minWidth: 0, border: '1px dashed rgba(19,20,19,0.35)', borderRadius: 12,
-                            background: 'var(--color-surface)', display: 'grid', placeItems: 'center', cursor: 'pointer',
+                            background: 'var(--color-surface)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
                           }}
                         >
                           <img src={base + 'assets/icons/camera.svg'} alt="" style={{ width: 24, height: 24, opacity: 0.55 }} />
@@ -242,7 +242,7 @@ function ContactSection({ t }) {
                 </div>
               </div>
 
-              <label style={{ display: 'flex', gap: 12, alignItems: 'flex-start', color: 'var(--color-text-muted)' }}>
+              <label style={{ display: 'flex', gap: 12, alignItems: 'center', color: 'var(--color-text-muted)' }}>
                 <input
                   type="checkbox"
                   required
