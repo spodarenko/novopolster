@@ -46,17 +46,20 @@ function LoopVideo({ src, poster, videoStyle, fit = 'cover' }) {
       />
       {isMobile ? (
         <button type="button" onClick={toggle} aria-label={playing ? 'Pause' : 'Play'} style={{
-          position: 'absolute', zIndex: 2,
-          left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: 60, height: 60,
-          border: 0, borderRadius: '50%', background: 'rgba(19,20,19,0.55)',
+          position: 'absolute', inset: 0, zIndex: 2, padding: 0, border: 0, background: 'transparent',
           display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
-          WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)',
         }}>
-          {playing ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><rect x="5" y="4" width="4" height="16" rx="1" /><rect x="15" y="4" width="4" height="16" rx="1" /></svg>
-          ) : (
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z" /></svg>
-          )}
+          {/* While playing the whole frame stays a tap-target to pause, but the
+              badge is hidden so the video is clean. It reappears once paused. */}
+          {!playing ? (
+            <span style={{
+              width: 60, height: 60, borderRadius: '50%', background: 'rgba(19,20,19,0.55)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)',
+            }}>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z" /></svg>
+            </span>
+          ) : null}
         </button>
       ) : null}
     </React.Fragment>
