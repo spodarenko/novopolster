@@ -9,32 +9,60 @@
 <base href="artifacts/novopolster-design-system/ui_kits/marketing-website/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NovoPolster — Polsterreinigung München</title>
+<meta name="description" content="Professionelle Polsterreinigung in München und Umgebung (30 km): Sofas, Matratzen, Autositze und Sessel — mobil bei Ihnen vor Ort. Transparente Preise, Anfrage per WhatsApp in 30 Sekunden.">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph / social preview. URLs point at the live GitHub Pages site.
+     og:image currently reuses the hero webp; for best previews replace it with a
+     dedicated 1200x630 JPG/PNG (webp support in scrapers is inconsistent).
+     Update these absolute URLs if the site moves to a custom domain. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NovoPolster">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:title" content="NovoPolster — Polsterreinigung München">
+<meta property="og:description" content="Chemische Reinigung von Polstermöbeln, Matratzen und Autositzen — mobil in München + 30 km.">
+<meta property="og:url" content="https://spodarenko.github.io/novopolster/">
+<meta property="og:image" content="https://spodarenko.github.io/novopolster/artifacts/Content/Hero%20img.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NovoPolster — Polsterreinigung München">
+<meta name="twitter:description" content="Chemische Reinigung von Polstermöbeln, Matratzen und Autositzen — mobil in München + 30 km.">
+<meta name="twitter:image" content="https://spodarenko.github.io/novopolster/artifacts/Content/Hero%20img.webp">
+
+<!-- hreflang is intentionally NOT emitted. Real hreflang needs a distinct
+     crawlable URL per language (e.g. /de /en /ua /it). This site serves all four
+     languages from one URL via client-side switching, so hreflang tags would
+     point nowhere. Add them once per-language URLs exist. -->
+
 <link rel="stylesheet" href="../../styles.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700&display=swap">
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<!-- Fonts (Exo 2 + Golos Text) are self-hosted via ../../styles.css. No Google
+     Fonts CDN: avoids sending visitor IPs to Google (GDPR — LG München I). -->
+
+<!-- React production builds. JSX is precompiled to plain .js by `npm run build`
+     (Babel), so no @babel/standalone and no React dev build ship to production. -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
-<script type="text/babel" src="component-overrides.jsx"></script>
+<script src="component-overrides.js"></script>
 <script src="i18n.js"></script>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script src="tweaks-panel.js"></script>
 <style>body{margin:0;}</style>
 </head>
 <body>
 <div id="root"></div>
-<script type="text/babel" src="sections/Hero.jsx"></script>
-<script type="text/babel" src="sections/Benefits.jsx"></script>
-<script type="text/babel" src="sections/Services.jsx"></script>
-<script type="text/babel" src="sections/ServicesPricing.jsx"></script>
-<script type="text/babel" src="sections/Process.jsx"></script>
-<script type="text/babel" src="sections/FAQSection.jsx"></script>
-<script type="text/babel" src="sections/ServiceArea.jsx"></script>
-<script type="text/babel" src="sections/ContactSection.jsx"></script>
-<script type="text/babel" src="sections/FinalCTA.jsx"></script>
-<script type="text/babel" src="sections/WhatsAppFloat.jsx"></script>
-<script type="text/babel" src="App.jsx"></script>
+<script src="sections/Hero.js"></script>
+<script src="sections/Benefits.js"></script>
+<script src="sections/Services.js"></script>
+<script src="sections/ServicesPricing.js"></script>
+<script src="sections/Process.js"></script>
+<script src="sections/FAQSection.js"></script>
+<script src="sections/ServiceArea.js"></script>
+<script src="sections/ContactSection.js"></script>
+<script src="sections/FinalCTA.js"></script>
+<script src="sections/WhatsAppFloat.js"></script>
+<script src="App.js"></script>
 <!-- With <base> set, in-page "#anchor" links would otherwise navigate to the
      base document. Intercept them and smooth-scroll instead. -->
 <script>

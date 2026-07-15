@@ -251,7 +251,7 @@ function ContactSection({ t }) {
                   style={{ width: 26, height: 26, marginTop: 0, flexShrink: 0, accentColor: 'var(--color-brand)', cursor: 'pointer' }}
                 />
                 <span style={{ fontFamily: 'var(--font-body)', fontSize: 15, lineHeight: '22px' }}>
-                  {t.contact.consentPrefix || 'Я погоджуюся з обробкою персональних даних згідно з'} <a href="#" style={{ color: 'var(--color-brand)', textDecoration: 'underline' }}>{t.contact.consentLink || 'Політикою конфіденційності'}</a>
+                  {t.contact.consentPrefix || 'Я погоджуюся з обробкою персональних даних згідно з'} <a href="../../../../datenschutz.html" target="_blank" rel="noopener" style={{ color: 'var(--color-brand)', textDecoration: 'underline' }}>{t.contact.consentLink || 'Політикою конфіденційності'}</a>
                 </span>
               </label>
 

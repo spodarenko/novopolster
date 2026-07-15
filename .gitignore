@@ -4,3 +4,6 @@
 
 # Logs / temp
 *.log
+
+# npm build tooling
+node_modules/

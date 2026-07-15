@@ -1,0 +1,14 @@
+{
+  "name": "novopolster-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "NovoPolster landing. Build step precompiles JSX -> JS so no in-browser Babel and no React dev build ship to production.",
+  "scripts": {
+    "build": "babel artifacts/novopolster-design-system/ui_kits/marketing-website --out-dir artifacts/novopolster-design-system/ui_kits/marketing-website --extensions .jsx --out-file-extension .js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0"
+  }
+}

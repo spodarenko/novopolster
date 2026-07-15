@@ -824,7 +824,12 @@ function Footer({ t }) {
         </div>
         <img src={base + 'assets/logo/novopolster-wordmark.svg'} alt="NovoPolster" style={{ display: 'block', width: '100%', height: 'auto' }} />
         <div style={{ display: 'flex', alignItems: isMobile ? 'flex-start' : 'center', justifyContent: 'space-between', flexDirection: isMobile ? 'column' : 'row', flexWrap: 'wrap', gap: 16, fontFamily: 'var(--font-body)', fontSize: 14, lineHeight: '20px', color: 'rgba(19,20,19,0.64)' }}>
-          <span>© 2026 NovoPolster. {t.footer.rights}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <span>© 2026 NovoPolster. {t.footer.rights}</span>
+            <span aria-hidden="true">·</span>
+            <a href="../../../../impressum.html" style={{ color: 'inherit', textDecoration: 'underline' }}>Impressum</a>
+            <a href="../../../../datenschutz.html" style={{ color: 'inherit', textDecoration: 'underline' }}>Datenschutz</a>
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 20 : 32, flexWrap: 'wrap' }}><span>{t.footer.createdBy} <FooterLink href="https://intelliweb.com.ua/">Intelliweb</FooterLink></span><div style={{ display: 'flex', gap: 16 }}>{social.map((name) => <IconLink key={name} href={name === 'instagram' ? 'https://www.instagram.com/novopolster' : name === 'facebook' ? 'https://www.facebook.com/share/1D6JAwE911/' : 'https://www.tiktok.com/@novo.polster'}><img src={base + `assets/icons/${name}.svg`} alt="" style={{ width: 16, height: 16 }} /></IconLink>)}</div></div>
         </div>
       </div>
