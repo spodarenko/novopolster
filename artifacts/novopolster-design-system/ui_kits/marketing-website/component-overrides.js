@@ -1612,23 +1612,13 @@ function Footer({
     style: {
       display: 'flex',
       alignItems: 'center',
-      gap: 16,
+      gap: 24,
       flexWrap: 'wrap'
     }
-  }, /*#__PURE__*/React.createElement("span", null, "\xA9 2026 NovoPolster. ", t.footer.rights), /*#__PURE__*/React.createElement("span", {
-    "aria-hidden": "true"
-  }, "\xB7"), /*#__PURE__*/React.createElement("a", {
-    href: "../../../../impressum.html",
-    style: {
-      color: 'inherit',
-      textDecoration: 'underline'
-    }
-  }, "Impressum"), /*#__PURE__*/React.createElement("a", {
-    href: "../../../../datenschutz.html",
-    style: {
-      color: 'inherit',
-      textDecoration: 'underline'
-    }
+  }, /*#__PURE__*/React.createElement("span", null, "\xA9 2026 NovoPolster. ", t.footer.rights), /*#__PURE__*/React.createElement(FooterLink, {
+    href: "../../../../impressum.html"
+  }, "Impressum"), /*#__PURE__*/React.createElement(FooterLink, {
+    href: "../../../../datenschutz.html"
   }, "Datenschutz")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
