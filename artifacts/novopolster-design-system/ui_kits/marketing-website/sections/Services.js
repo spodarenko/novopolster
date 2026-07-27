@@ -9,6 +9,7 @@ function ServiceMediaCard({
   } = window.useViewport();
   return /*#__PURE__*/React.createElement("a", {
     href: "#kontakt",
+    draggable: false,
     onClick: e => {
       e.preventDefault();
       onSelect(item.image);
@@ -36,6 +37,7 @@ function ServiceMediaCard({
     src: `${base}assets/images/services/${item.image}.webp`,
     alt: "",
     "aria-hidden": "true",
+    draggable: false,
     style: {
       position: 'absolute',
       inset: 0,
@@ -100,8 +102,20 @@ function ServicesGridSection({
   } = window.useViewport();
   const items = [...t.servicesGrid.items, ...t.servicesGrid.items];
   const [isCardHovered, setIsCardHovered] = React.useState(false);
-  const trackRef = React.useRef(null);
-  const animationRef = React.useRef(null);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const viewportRef = React.useRef(null);
+  const rafRef = React.useRef(null);
+  const speedRef = React.useRef(1); // 1 normal pace, 0.1875 hover-slow (matches the old playbackRate)
+  const dragRef = React.useRef({
+    active: false,
+    startX: 0,
+    startScroll: 0,
+    moved: false
+  });
+  const justDraggedRef = React.useRef(false);
+  React.useEffect(() => {
+    speedRef.current = isCardHovered ? 0.1875 : 1;
+  }, [isCardHovered]);
   const selectService = serviceId => {
     window.dispatchEvent(new CustomEvent('np:select-service', {
       detail: {
@@ -114,23 +128,85 @@ function ServicesGridSection({
       block: 'start'
     });
   };
+
+  // Auto-advance the native scroll position (instead of animating transform) so the same
+  // scrollLeft also responds to touch/trackpad swipes and the mouse-drag handler below --
+  // one shared mechanism instead of two competing ones. Wraps at the halfway point since
+  // `items` is the list duplicated once, so the wrap is invisible.
   React.useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !trackRef.current) return undefined;
-    const animation = trackRef.current.animate([{
-      transform: 'translateX(0)'
-    }, {
-      transform: 'translateX(-50%)'
-    }], {
-      duration: 45000,
-      easing: 'linear',
-      iterations: Infinity
-    });
-    animationRef.current = animation;
-    return () => animation.cancel();
+    const viewport = viewportRef.current;
+    if (!viewport || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    let lastTime = null;
+    const step = time => {
+      if (lastTime === null) lastTime = time;
+      const dt = (time - lastTime) / 1000;
+      lastTime = time;
+      if (!dragRef.current.active && speedRef.current > 0) {
+        const half = viewport.scrollWidth / 2;
+        const pxPerSecond = half / 45; // same 45s full-cycle pace as the previous animation
+        let next = viewport.scrollLeft + pxPerSecond * speedRef.current * dt;
+        if (next >= half) next -= half;
+        viewport.scrollLeft = next;
+      }
+      rafRef.current = requestAnimationFrame(step);
+    };
+    rafRef.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafRef.current);
   }, []);
+
+  // Click-and-drag scrolling for mouse pointers. Touch/pen already scroll natively via
+  // overflow-x -- only intercept `mouse` so we don't fight the browser's own touch panning.
   React.useEffect(() => {
-    if (animationRef.current) animationRef.current.playbackRate = isCardHovered ? 0.1875 : 1;
-  }, [isCardHovered]);
+    const viewport = viewportRef.current;
+    if (!viewport) return undefined;
+    const onPointerDown = e => {
+      if (e.pointerType !== 'mouse') return;
+      dragRef.current = {
+        active: true,
+        startX: e.clientX,
+        startScroll: viewport.scrollLeft,
+        moved: false
+      };
+      setIsDragging(true);
+      viewport.setPointerCapture(e.pointerId);
+    };
+    const onPointerMove = e => {
+      if (!dragRef.current.active) return;
+      const dx = e.clientX - dragRef.current.startX;
+      if (Math.abs(dx) > 4) dragRef.current.moved = true;
+      viewport.scrollLeft = dragRef.current.startScroll - dx;
+    };
+    const onPointerUp = () => {
+      if (!dragRef.current.active) return;
+      if (dragRef.current.moved) {
+        justDraggedRef.current = true;
+        setTimeout(() => {
+          justDraggedRef.current = false;
+        }, 0);
+      }
+      dragRef.current.active = false;
+      setIsDragging(false);
+    };
+    // Swallow the click a drag-release would otherwise fire on the card underneath.
+    const onClickCapture = e => {
+      if (justDraggedRef.current) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+    viewport.addEventListener('pointerdown', onPointerDown);
+    viewport.addEventListener('pointermove', onPointerMove);
+    viewport.addEventListener('pointerup', onPointerUp);
+    viewport.addEventListener('pointercancel', onPointerUp);
+    viewport.addEventListener('click', onClickCapture, true);
+    return () => {
+      viewport.removeEventListener('pointerdown', onPointerDown);
+      viewport.removeEventListener('pointermove', onPointerMove);
+      viewport.removeEventListener('pointerup', onPointerUp);
+      viewport.removeEventListener('pointercancel', onPointerUp);
+      viewport.removeEventListener('click', onClickCapture, true);
+    };
+  }, []);
   return /*#__PURE__*/React.createElement("section", {
     id: "services",
     "data-screen-label": "Services",
@@ -140,10 +216,8 @@ function ServicesGridSection({
       overflow: 'hidden'
     }
   }, /*#__PURE__*/React.createElement("style", null, `
-        @keyframes np-services-cycle {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
+        .np-services-viewport { scrollbar-width: none; }
+        .np-services-viewport::-webkit-scrollbar { display: none; }
       `), /*#__PURE__*/React.createElement(window.Reveal, {
     style: {
       display: 'flex',
@@ -189,23 +263,25 @@ function ServicesGridSection({
     }
   }, t.servicesGrid.subhead)), /*#__PURE__*/React.createElement("div", {
     className: "np-services-viewport",
+    ref: viewportRef,
     onMouseEnter: () => setIsCardHovered(true),
     onMouseLeave: () => setIsCardHovered(false),
     onFocus: () => setIsCardHovered(true),
     onBlur: () => setIsCardHovered(false),
     style: {
       width: '100%',
-      overflow: 'visible'
+      overflowX: 'auto',
+      overflowY: 'hidden',
+      overscrollBehaviorX: 'contain',
+      cursor: isDragging ? 'grabbing' : 'grab'
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "np-services-track",
-    ref: trackRef,
     style: {
       display: 'flex',
       width: 'max-content',
       gap: isMobile ? 12 : 20,
-      padding: isMobile ? '0 0 12px' : '0 10px 12px',
-      willChange: 'transform'
+      padding: isMobile ? '0 0 12px' : '0 10px 12px'
     }
   }, items.map((item, index) => /*#__PURE__*/React.createElement(ServiceMediaCard, {
     key: `${item.image}-${index}`,
