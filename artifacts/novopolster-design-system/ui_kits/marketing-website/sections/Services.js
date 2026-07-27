@@ -20,7 +20,7 @@ function ServiceMediaCard({
     style: {
       position: 'relative',
       width: isMobile ? 280 : 362,
-      height: isMobile ? 340 : 420,
+      height: isMobile ? 280 : 420,
       flexShrink: 0,
       display: 'flex',
       alignItems: 'flex-end',
