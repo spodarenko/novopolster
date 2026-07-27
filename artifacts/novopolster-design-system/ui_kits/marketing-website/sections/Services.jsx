@@ -96,7 +96,9 @@ function ServiceMediaCard({ item, base, onSelect }) {
 function ServicesGridSection({ t }) {
   const base = window.NP_ASSETS_BASE || '';
   const { isMobile, isNarrow } = window.useViewport();
-  const items = [...t.servicesGrid.items, ...t.servicesGrid.items];
+  // Tripled (not just doubled) so there's a full spare copy on both sides -- lets scrollLeft
+  // wrap seamlessly whichever direction the visitor scrolls/drags, not just forward.
+  const items = [...t.servicesGrid.items, ...t.servicesGrid.items, ...t.servicesGrid.items];
   const [isCardHovered, setIsCardHovered] = React.useState(false);
   const [isDragging, setIsDragging] = React.useState(false);
   const viewportRef = React.useRef(null);
@@ -115,10 +117,16 @@ function ServicesGridSection({ t }) {
     if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const scrollByCard = (dir) => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const cardWidth = (isMobile ? 280 : 362) + (isMobile ? 12 : 20);
+    viewport.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+  };
+
   // Auto-advance the native scroll position (instead of animating transform) so the same
   // scrollLeft also responds to touch/trackpad swipes and the mouse-drag handler below --
-  // one shared mechanism instead of two competing ones. Wraps at the halfway point since
-  // `items` is the list duplicated once, so the wrap is invisible.
+  // one shared mechanism instead of two competing ones.
   React.useEffect(() => {
     const viewport = viewportRef.current;
     if (!viewport || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
@@ -129,16 +137,37 @@ function ServicesGridSection({ t }) {
       const dt = (time - lastTime) / 1000;
       lastTime = time;
       if (!dragRef.current.active && speedRef.current > 0) {
-        const half = viewport.scrollWidth / 2;
-        const pxPerSecond = half / 45; // same 45s full-cycle pace as the previous animation
-        let next = viewport.scrollLeft + pxPerSecond * speedRef.current * dt;
-        if (next >= half) next -= half;
-        viewport.scrollLeft = next;
+        const third = viewport.scrollWidth / 3;
+        const pxPerSecond = third / 45; // same 45s full-cycle pace as the previous animation
+        viewport.scrollLeft += pxPerSecond * speedRef.current * dt;
       }
       rafRef.current = requestAnimationFrame(step);
     };
     rafRef.current = requestAnimationFrame(step);
     return () => cancelAnimationFrame(rafRef.current);
+  }, []);
+
+  // `items` is the list tripled, so [third, 2*third) of scrollWidth is a full, seamless copy.
+  // Re-center into that middle copy whenever scrolling (auto, drag, touch, or trackpad) drifts
+  // out of it, giving the illusion of an infinite scroll in either direction.
+  React.useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return undefined;
+
+    const normalize = () => {
+      const third = viewport.scrollWidth / 3;
+      if (!third) return;
+      if (viewport.scrollLeft < third * 0.5) viewport.scrollLeft += third;
+      else if (viewport.scrollLeft >= third * 1.5) viewport.scrollLeft -= third;
+    };
+
+    viewport.scrollLeft = viewport.scrollWidth / 3;
+    viewport.addEventListener('scroll', normalize, { passive: true });
+    window.addEventListener('resize', normalize);
+    return () => {
+      viewport.removeEventListener('scroll', normalize);
+      window.removeEventListener('resize', normalize);
+    };
   }, []);
 
   // Click-and-drag scrolling for mouse pointers. Touch/pen already scroll natively via
@@ -258,9 +287,44 @@ function ServicesGridSection({ t }) {
             ))}
           </div>
         </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => scrollByCard(-1)}
+            style={arrowButtonStyle}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => scrollByCard(1)}
+            style={arrowButtonStyle}
+          >
+            ›
+          </button>
+        </div>
       </window.Reveal>
     </section>
   );
 }
+
+const arrowButtonStyle = {
+  width: 48,
+  height: 48,
+  borderRadius: '50%',
+  border: 'none',
+  background: '#131413',
+  color: 'var(--color-text-inverse)',
+  fontSize: 22,
+  lineHeight: 1,
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  flexShrink: 0,
+};
 
 window.ServicesGridSection = ServicesGridSection;
