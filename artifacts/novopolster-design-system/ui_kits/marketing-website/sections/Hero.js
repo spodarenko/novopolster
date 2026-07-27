@@ -224,7 +224,7 @@ function Hero({
     }
   }, /*#__PURE__*/React.createElement("h1", {
     style: {
-      fontSize: isMobile ? 30 : 'clamp(2.25rem, 3vw + 1rem, var(--text-5xl))',
+      fontSize: isMobile ? 30 : 'clamp(2.1rem, 2.6vw + 0.85rem, var(--text-4xl))',
       color: 'var(--color-text-inverse)',
       textTransform: 'uppercase',
       letterSpacing: 'var(--tracking-tight)',

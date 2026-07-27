@@ -156,7 +156,7 @@ function Hero({ t }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', marginTop: 'var(--space-4)' }}>
               <h1 style={{
-                fontSize: isMobile ? 30 : 'clamp(2.25rem, 3vw + 1rem, var(--text-5xl))', color: 'var(--color-text-inverse)',
+                fontSize: isMobile ? 30 : 'clamp(2.1rem, 2.6vw + 0.85rem, var(--text-4xl))', color: 'var(--color-text-inverse)',
                 textTransform: 'uppercase', letterSpacing: 'var(--tracking-tight)', maxWidth: isMobile ? '100%' : 420,
                 width: '100%',
                 lineHeight: isMobile ? '34px' : undefined,
