@@ -178,6 +178,8 @@ function Hero({
   }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
       gap: 'var(--space-3)',
       flexWrap: 'wrap'
     }
@@ -215,7 +217,16 @@ function Hero({
       height: 13,
       filter: 'brightness(0) invert(1)'
     }
-  })), t.hero.zoneLabel)), /*#__PURE__*/React.createElement("div", {
+  })), t.hero.zoneLabel), /*#__PURE__*/React.createElement("img", {
+    src: base + 'assets/logo/eco-badge.svg',
+    alt: "Eco",
+    style: {
+      height: 28,
+      width: 'auto',
+      objectFit: 'contain',
+      flexShrink: 0
+    }
+  })), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       flexDirection: 'column',

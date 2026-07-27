@@ -137,7 +137,7 @@ function Hero({ t }) {
           minHeight: isMobile ? 430 : isNarrow ? 520 : 'auto',
         }}>
           <div>
-            <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
               <span style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.2)',
                 borderRadius: 'var(--radius-pill)', padding: '4px 12px 4px 4px',
@@ -152,6 +152,7 @@ function Hero({ t }) {
                 </span>
                 {t.hero.zoneLabel}
               </span>
+              <img src={base + 'assets/logo/eco-badge.svg'} alt="Eco" style={{ height: 28, width: 'auto', objectFit: 'contain', flexShrink: 0 }} />
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', marginTop: 'var(--space-4)' }}>
