@@ -146,10 +146,10 @@ function BenefitsSection({
       overflow: 'hidden',
       background: '#F7F5F1'
     }
-  }, /*#__PURE__*/React.createElement(window.LoopVideo, {
-    src: "../../assets/video/why-us-video.mp4",
-    poster: "../../assets/images/why-us.webp",
-    videoStyle: {
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "../../assets/images/why-us.webp",
+    alt: "",
+    style: {
       position: 'absolute',
       inset: 0,
       width: '100%',
