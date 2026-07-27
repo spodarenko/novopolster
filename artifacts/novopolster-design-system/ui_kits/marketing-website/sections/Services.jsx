@@ -222,6 +222,32 @@ function ServicesGridSection({ t }) {
       <style>{`
         .np-services-viewport { scrollbar-width: none; }
         .np-services-viewport::-webkit-scrollbar { display: none; }
+
+        /* Rest / hover / pressed all come from existing tokens: the neutral pill is the
+           section's own tag background, the hover fill is the ink used for body headings. */
+        .np-services-arrow {
+          width: 48px; height: 48px; flex-shrink: 0;
+          border: none; border-radius: 50%; padding: 0;
+          display: inline-flex; align-items: center; justify-content: center;
+          background: var(--neutral-100);
+          color: var(--color-text-primary);
+          cursor: pointer;
+          transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+        }
+        .np-services-arrow:hover {
+          background: var(--color-text-primary);
+          color: var(--color-text-inverse);
+        }
+        .np-services-arrow:active {
+          background: var(--neutral-900);
+          color: var(--color-text-inverse);
+          transform: scale(0.94);
+        }
+        .np-services-arrow svg { width: 20px; height: 20px; display: block; }
+        @media (prefers-reduced-motion: reduce) {
+          .np-services-arrow { transition: none; }
+          .np-services-arrow:active { transform: none; }
+        }
       `}</style>
 
       <window.Reveal style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 24 : 32 }}>
@@ -292,21 +318,11 @@ function ServicesGridSection({ t }) {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', gap: 12, padding: `0 ${gutter}px` }}>
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={() => scrollByCard(-1)}
-            style={arrowButtonStyle}
-          >
-            ‹
+          <button type="button" className="np-services-arrow" aria-label="Previous" onClick={() => scrollByCard(-1)}>
+            <ChevronIcon dir="left" />
           </button>
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={() => scrollByCard(1)}
-            style={arrowButtonStyle}
-          >
-            ›
+          <button type="button" className="np-services-arrow" aria-label="Next" onClick={() => scrollByCard(1)}>
+            <ChevronIcon dir="right" />
           </button>
         </div>
       </window.Reveal>
@@ -314,20 +330,18 @@ function ServicesGridSection({ t }) {
   );
 }
 
-const arrowButtonStyle = {
-  width: 48,
-  height: 48,
-  borderRadius: '50%',
-  border: 'none',
-  background: '#131413',
-  color: 'var(--color-text-inverse)',
-  fontSize: 22,
-  lineHeight: 1,
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  flexShrink: 0,
-};
+function ChevronIcon({ dir }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d={dir === 'left' ? 'M15 5L8 12l7 7' : 'M9 5l7 7-7 7'}
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 window.ServicesGridSection = ServicesGridSection;
