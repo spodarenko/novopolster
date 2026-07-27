@@ -418,7 +418,7 @@ function Header({ logo, links = [], lang = 'DE', onLangChange, onCta, ctaLabel =
           if (window.scrollY < 40) window.location.reload();
           else window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
-        style={{ height: 19.4, width: 'auto', objectFit: 'contain', cursor: 'pointer' }}
+        style={{ height: 21.34, width: 'auto', objectFit: 'contain', cursor: 'pointer' }}
       />
       <nav style={{ display: isNarrow ? 'none' : 'flex', alignItems: 'center', gap: 'var(--space-8)' }}>
         {links.map((l) => <NavLink key={l.label} href={l.href}>{l.label}</NavLink>)}
