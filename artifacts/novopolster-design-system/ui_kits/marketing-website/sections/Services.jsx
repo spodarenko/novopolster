@@ -96,6 +96,7 @@ function ServiceMediaCard({ item, base, onSelect }) {
 function ServicesGridSection({ t }) {
   const base = window.NP_ASSETS_BASE || '';
   const { isMobile, isNarrow } = window.useViewport();
+  const gutter = isMobile ? 16 : isNarrow ? 24 : 64;
   // Tripled (not just doubled) so there's a full spare copy on both sides -- lets scrollLeft
   // wrap seamlessly whichever direction the visitor scrolls/drags, not just forward.
   const items = [...t.servicesGrid.items, ...t.servicesGrid.items, ...t.servicesGrid.items];
@@ -217,14 +218,16 @@ function ServicesGridSection({ t }) {
   }, []);
 
   return (
-    <section id="services" data-screen-label="Services" style={{ padding: isMobile ? '48px 16px 24px' : isNarrow ? '56px 24px 28px' : '64px 64px 32px', background: 'var(--color-bg)', overflow: 'hidden' }}>
+    <section id="services" data-screen-label="Services" style={{ padding: isMobile ? '48px 0 24px' : isNarrow ? '56px 0 28px' : '64px 0 32px', background: 'var(--color-bg)', overflow: 'hidden' }}>
       <style>{`
         .np-services-viewport { scrollbar-width: none; }
         .np-services-viewport::-webkit-scrollbar { display: none; }
       `}</style>
 
       <window.Reveal style={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 24 : 32 }}>
-        <header style={{ width: 'min(680px, 100%)', margin: '0 auto', textAlign: 'center' }}>
+        {/* The section itself has no side padding so the slider can run full-bleed and the
+            cards get cropped by the viewport edge; header and arrows re-add the gutter. */}
+        <header style={{ width: 'min(680px, 100%)', margin: '0 auto', padding: `0 ${gutter}px`, boxSizing: 'border-box', textAlign: 'center' }}>
           <div style={{
             display: 'inline-flex',
             marginBottom: 12,
@@ -279,7 +282,7 @@ function ServicesGridSection({ t }) {
               display: 'flex',
               width: 'max-content',
               gap: isMobile ? 12 : 20,
-              padding: isMobile ? '0 0 12px' : '0 10px 12px',
+              padding: '0 0 12px',
             }}
           >
             {items.map((item, index) => (
@@ -288,7 +291,7 @@ function ServicesGridSection({ t }) {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 12, padding: `0 ${gutter}px` }}>
           <button
             type="button"
             aria-label="Previous"
