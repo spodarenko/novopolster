@@ -363,7 +363,7 @@ window.NP_I18N = {
       zoneLabel: 'Мюнхен + 30 км',
       langLabel: 'DE · EN · UA · IT',
       slogan: 'Немає часу перейматися? Ми подбаємо.',
-      headlinePrefix: 'Хімчистка для зайнятих людей у' /* Sparkles-pattern experiment — see DE note */,
+      headlinePrefix: 'Професійна хімчистка меблів у вас в Дома' /* Sparkles-pattern experiment — see DE note */,
       subhead: 'Хімчистка м\u0027яких меблів, матраців та автомобільних салонів — у вас вдома.',
       ctaPrimary: 'Написати',
       ctaSecondary: 'Зв\u0027язатися',
