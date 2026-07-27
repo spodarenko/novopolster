@@ -231,8 +231,8 @@ function Hero({
       maxWidth: isMobile ? '100%' : 420,
       width: '100%',
       lineHeight: isMobile ? '34px' : undefined,
-      overflowWrap: 'anywhere',
-      wordBreak: 'break-word'
+      overflowWrap: 'normal',
+      wordBreak: 'normal'
     }
   }, t.hero.headlinePrefix, t.hero.showCity === false ? null : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(RotatingWord, {
     words: cities

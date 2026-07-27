@@ -160,8 +160,8 @@ function Hero({ t }) {
                 textTransform: 'uppercase', letterSpacing: 'var(--tracking-tight)', maxWidth: isMobile ? '100%' : 420,
                 width: '100%',
                 lineHeight: isMobile ? '34px' : undefined,
-                overflowWrap: 'anywhere',
-                wordBreak: 'break-word',
+                overflowWrap: 'normal',
+                wordBreak: 'normal',
               }}>
                 {t.hero.headlinePrefix}{t.hero.showCity === false ? null : (<React.Fragment><br /><RotatingWord words={cities} /></React.Fragment>)}
               </h1>
