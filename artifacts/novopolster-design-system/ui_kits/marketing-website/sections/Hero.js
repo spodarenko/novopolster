@@ -234,9 +234,9 @@ function Hero({
       overflowWrap: 'anywhere',
       wordBreak: 'break-word'
     }
-  }, t.hero.headlinePrefix, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(RotatingWord, {
+  }, t.hero.headlinePrefix, t.hero.showCity === false ? null : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(RotatingWord, {
     words: cities
-  })))), /*#__PURE__*/React.createElement("div", {
+  }))))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       gap: 8,

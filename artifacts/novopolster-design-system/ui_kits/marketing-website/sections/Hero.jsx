@@ -163,7 +163,7 @@ function Hero({ t }) {
                 overflowWrap: 'anywhere',
                 wordBreak: 'break-word',
               }}>
-                {t.hero.headlinePrefix}<br /><RotatingWord words={cities} />
+                {t.hero.headlinePrefix}{t.hero.showCity === false ? null : (<React.Fragment><br /><RotatingWord words={cities} /></React.Fragment>)}
               </h1>
             </div>
           </div>

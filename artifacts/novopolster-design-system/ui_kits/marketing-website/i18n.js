@@ -364,6 +364,7 @@ window.NP_I18N = {
       langLabel: 'DE · EN · UA · IT',
       slogan: 'Немає часу перейматися? Ми подбаємо.',
       headlinePrefix: 'Професійна хімчистка меблів у вас в Дома' /* Sparkles-pattern experiment — see DE note */,
+      showCity: false,
       subhead: 'Хімчистка м\u0027яких меблів, матраців та автомобільних салонів — у вас вдома.',
       ctaPrimary: 'Написати',
       ctaSecondary: 'Зв\u0027язатися',
