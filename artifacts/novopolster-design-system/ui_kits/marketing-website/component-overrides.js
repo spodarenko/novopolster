@@ -494,16 +494,28 @@ function NavLink({
 }
 const NP_LANGS = [{
   code: 'DE',
-  label: 'Deutsch'
+  label: 'Deutsch',
+  flag: 'de'
 }, {
   code: 'EN',
-  label: 'English'
+  label: 'English',
+  flag: 'en'
 }, {
   code: 'UA',
-  label: 'Українська'
+  label: 'Українська',
+  flag: 'ua'
 }, {
   code: 'IT',
-  label: 'Italiano'
+  label: 'Italiano',
+  flag: 'it'
+}, {
+  code: 'RU',
+  label: 'Русский',
+  flag: 'ru'
+}, {
+  code: 'TR',
+  label: 'Türkçe',
+  flag: 'tr'
 }];
 
 /* Fullscreen mobile/tablet menu. Portalled to <body> so it escapes the
@@ -696,13 +708,17 @@ function MobileMenu({
       color: l.code === lang ? 'var(--color-brand)' : 'var(--color-text-primary)',
       background: l.code === lang ? 'var(--color-brand-subtle)' : 'transparent'
     }
-  }, /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement("img", {
+    src: base + 'assets/icons/flags/' + l.flag + '.svg',
+    alt: "",
     style: {
-      width: 34,
-      textTransform: 'uppercase',
-      letterSpacing: 'var(--tracking-wide)'
+      width: 24,
+      height: 24,
+      borderRadius: '50%',
+      objectFit: 'cover',
+      flexShrink: 0
     }
-  }, l.code), /*#__PURE__*/React.createElement("span", {
+  }), /*#__PURE__*/React.createElement("span", {
     style: {
       opacity: 0.85
     }
@@ -723,11 +739,13 @@ function MobileMenu({
       gap: 10
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: base + 'assets/icons/globe.svg',
+    src: base + 'assets/icons/flags/' + current.flag + '.svg',
     alt: "",
     style: {
       width: 20,
-      height: 20
+      height: 20,
+      borderRadius: '50%',
+      objectFit: 'cover'
     }
   }), current.label), /*#__PURE__*/React.createElement("img", {
     src: base + 'assets/icons/chevron-down.svg',
@@ -923,6 +941,7 @@ function LanguageSwitcher({
   const base = window.NP_ASSETS_BASE || '';
   const langs = NP_LANGS;
   const dark = tone === 'dark';
+  const current = langs.find(l => l.code === value) || langs[0];
   React.useEffect(() => {
     if (!open) return;
     const onOutsideClick = e => {
@@ -944,7 +963,7 @@ function LanguageSwitcher({
     style: {
       display: 'flex',
       alignItems: 'center',
-      gap: 6,
+      gap: 8,
       background: dark ? triggerHover ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.12)' : triggerHover ? 'var(--neutral-200)' : 'var(--neutral-100)',
       border: 'none',
       borderRadius: 'var(--radius-pill)',
@@ -958,12 +977,14 @@ function LanguageSwitcher({
       transition: `background var(--duration-base) var(--ease-standard)`
     }
   }, /*#__PURE__*/React.createElement("img", {
-    src: base + "assets/icons/globe.svg",
+    src: base + 'assets/icons/flags/' + current.flag + '.svg',
     alt: "",
     style: {
       width: isMobile ? 18 : 20,
       height: isMobile ? 18 : 20,
-      filter: dark ? 'brightness(0) invert(1)' : 'none'
+      borderRadius: '50%',
+      objectFit: 'cover',
+      flexShrink: 0
     }
   }), value, /*#__PURE__*/React.createElement("img", {
     src: base + "assets/icons/chevron-down.svg",
@@ -998,9 +1019,12 @@ function LanguageSwitcher({
     onMouseEnter: () => setHoverCode(l.code),
     onMouseLeave: () => setHoverCode(null),
     style: {
-      height: 40,
+      height: 44,
       boxSizing: 'border-box',
-      padding: '10px 20px',
+      padding: '10px 16px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
       fontFamily: 'var(--font-display)',
       fontSize: 14,
       lineHeight: '20px',
@@ -1011,7 +1035,17 @@ function LanguageSwitcher({
       background: l.code === value ? '#E9F7F4' : hoverCode === l.code ? 'rgba(19,20,19,0.05)' : 'var(--color-bg)',
       transition: `background var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard)`
     }
-  }, l.code, " \u2014 ", l.label))) : null);
+  }, /*#__PURE__*/React.createElement("img", {
+    src: base + 'assets/icons/flags/' + l.flag + '.svg',
+    alt: "",
+    style: {
+      width: 20,
+      height: 20,
+      borderRadius: '50%',
+      objectFit: 'cover',
+      flexShrink: 0
+    }
+  }), l.label))) : null);
 }
 function ServiceCard({
   icon,

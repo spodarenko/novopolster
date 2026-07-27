@@ -279,10 +279,12 @@ function NavLink({ href, children }) {
 }
 
 const NP_LANGS = [
-  { code: 'DE', label: 'Deutsch' },
-  { code: 'EN', label: 'English' },
-  { code: 'UA', label: 'Українська' },
-  { code: 'IT', label: 'Italiano' },
+  { code: 'DE', label: 'Deutsch', flag: 'de' },
+  { code: 'EN', label: 'English', flag: 'en' },
+  { code: 'UA', label: 'Українська', flag: 'ua' },
+  { code: 'IT', label: 'Italiano', flag: 'it' },
+  { code: 'RU', label: 'Русский', flag: 'ru' },
+  { code: 'TR', label: 'Türkçe', flag: 'tr' },
 ];
 
 /* Fullscreen mobile/tablet menu. Portalled to <body> so it escapes the
@@ -357,7 +359,7 @@ function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClo
                   color: l.code === lang ? 'var(--color-brand)' : 'var(--color-text-primary)',
                   background: l.code === lang ? 'var(--color-brand-subtle)' : 'transparent',
                 }}>
-                  <span style={{ width: 34, textTransform: 'uppercase', letterSpacing: 'var(--tracking-wide)' }}>{l.code}</span>
+                  <img src={base + 'assets/icons/flags/' + l.flag + '.svg'} alt="" style={{ width: 24, height: 24, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
                   <span style={{ opacity: 0.85 }}>{l.label}</span>
                 </button>
               ))}
@@ -368,7 +370,7 @@ function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClo
             background: '#F2ECE5', color: 'var(--color-text-primary)', borderColor: 'transparent',
           }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
-              <img src={base + 'assets/icons/globe.svg'} alt="" style={{ width: 20, height: 20 }} />
+              <img src={base + 'assets/icons/flags/' + current.flag + '.svg'} alt="" style={{ width: 20, height: 20, borderRadius: '50%', objectFit: 'cover' }} />
               {current.label}
             </span>
             <img src={base + 'assets/icons/chevron-down.svg'} alt="" style={{ width: 12, height: 12, transform: langOpen ? 'rotate(180deg)' : 'none', transition: 'transform var(--duration-base) var(--ease-standard)' }} />
@@ -470,6 +472,7 @@ function LanguageSwitcher({ value = 'DE', onChange, tone = 'light' }) {
   const base = window.NP_ASSETS_BASE || '';
   const langs = NP_LANGS;
   const dark = tone === 'dark';
+  const current = langs.find((l) => l.code === value) || langs[0];
 
   React.useEffect(() => {
     if (!open) return;
@@ -487,7 +490,7 @@ function LanguageSwitcher({ value = 'DE', onChange, tone = 'light' }) {
         onMouseEnter={() => setTriggerHover(true)}
         onMouseLeave={() => setTriggerHover(false)}
         style={{
-          display: 'flex', alignItems: 'center', gap: 6,
+          display: 'flex', alignItems: 'center', gap: 8,
           background: dark
             ? (triggerHover ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.12)')
             : (triggerHover ? 'var(--neutral-200)' : 'var(--neutral-100)'),
@@ -498,7 +501,7 @@ function LanguageSwitcher({ value = 'DE', onChange, tone = 'light' }) {
           transition: `background var(--duration-base) var(--ease-standard)`,
         }}
       >
-        <img src={base + "assets/icons/globe.svg"} alt="" style={{ width: isMobile ? 18 : 20, height: isMobile ? 18 : 20, filter: dark ? 'brightness(0) invert(1)' : 'none' }} />
+        <img src={base + 'assets/icons/flags/' + current.flag + '.svg'} alt="" style={{ width: isMobile ? 18 : 20, height: isMobile ? 18 : 20, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
         {value}
         <img src={base + "assets/icons/chevron-down.svg"} alt="" style={{ width: 10, height: 10, filter: dark ? 'brightness(0) invert(1)' : 'none', transform: open ? 'rotate(180deg)' : 'none' }} />
       </button>
@@ -515,14 +518,16 @@ function LanguageSwitcher({ value = 'DE', onChange, tone = 'light' }) {
               onMouseEnter={() => setHoverCode(l.code)}
               onMouseLeave={() => setHoverCode(null)}
               style={{
-                height: 40, boxSizing: 'border-box', padding: '10px 20px', fontFamily: 'var(--font-display)', fontSize: 14, lineHeight: '20px', cursor: 'pointer', whiteSpace: 'nowrap',
+                height: 44, boxSizing: 'border-box', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 10,
+                fontFamily: 'var(--font-display)', fontSize: 14, lineHeight: '20px', cursor: 'pointer', whiteSpace: 'nowrap',
                 color: l.code === value ? 'var(--color-brand)' : (hoverCode === l.code ? 'var(--color-text-primary)' : 'rgba(19,20,19,0.7)'),
                 fontWeight: 700,
                 background: l.code === value ? '#E9F7F4' : (hoverCode === l.code ? 'rgba(19,20,19,0.05)' : 'var(--color-bg)'),
                 transition: `background var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard)`,
               }}
             >
-              {l.code} — {l.label}
+              <img src={base + 'assets/icons/flags/' + l.flag + '.svg'} alt="" style={{ width: 20, height: 20, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+              {l.label}
             </div>
           ))}
         </div>
