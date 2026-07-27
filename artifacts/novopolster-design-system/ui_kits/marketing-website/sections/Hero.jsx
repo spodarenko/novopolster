@@ -156,10 +156,10 @@ function Hero({ t }) {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', marginTop: 'var(--space-4)' }}>
               <h1 style={{
-                fontSize: isMobile ? 30 : 'clamp(2.1rem, 2.6vw + 0.85rem, var(--text-4xl))', color: 'var(--color-text-inverse)',
-                textTransform: 'uppercase', letterSpacing: 'var(--tracking-tight)', maxWidth: isMobile ? '100%' : 420,
+                fontSize: isMobile ? 30 : 'clamp(2.1rem, 3.15vw + 0.55rem, 54px)', color: 'var(--color-text-inverse)',
+                textTransform: 'uppercase', letterSpacing: isMobile ? 'var(--tracking-tight)' : '-1px', maxWidth: isMobile ? '100%' : 420,
                 width: '100%',
-                lineHeight: isMobile ? '34px' : undefined,
+                lineHeight: isMobile ? '34px' : '58px',
                 overflowWrap: 'normal',
                 wordBreak: 'normal',
               }}>
