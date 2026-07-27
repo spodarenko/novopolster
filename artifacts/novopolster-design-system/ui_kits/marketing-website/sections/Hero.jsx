@@ -218,9 +218,10 @@ function Hero({ t }) {
         </div>
 
         <div style={{ position: 'relative', borderRadius: 'var(--radius-xl)', overflow: 'hidden', background: 'var(--color-bg-sunken)', minHeight: isMobile ? 300 : isNarrow ? 420 : 'auto' }}>
-          <window.LoopVideo
-            src="../../assets/video/hero-video.mp4"
-            poster="../../assets/images/hero.webp"
+          <img
+            src="../../assets/images/hero.webp"
+            alt=""
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
         </div>
       </div>

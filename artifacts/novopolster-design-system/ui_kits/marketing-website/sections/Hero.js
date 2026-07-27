@@ -335,9 +335,15 @@ function Hero({
       background: 'var(--color-bg-sunken)',
       minHeight: isMobile ? 300 : isNarrow ? 420 : 'auto'
     }
-  }, /*#__PURE__*/React.createElement(window.LoopVideo, {
-    src: "../../assets/video/hero-video.mp4",
-    poster: "../../assets/images/hero.webp"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "../../assets/images/hero.webp",
+    alt: "",
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: 'block'
+    }
   }))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'grid',
