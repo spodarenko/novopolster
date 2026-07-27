@@ -1,3 +1,13 @@
+/* Renders `**text**` as <strong>. Plain strings with no `**` pass through
+   unchanged, so this is a no-op for locales that don't use the markup. */
+function BoldedText({
+  text
+}) {
+  const parts = String(text).split('**');
+  return parts.map((part, i) => i % 2 === 1 ? /*#__PURE__*/React.createElement("strong", {
+    key: i
+  }, part) : part);
+}
 function ServicesPricingSection({
   t
 }) {
@@ -73,7 +83,9 @@ function ServicesPricingSection({
       lineHeight: 'var(--leading-relaxed)',
       color: 'var(--color-text-primary)'
     }
-  }, t.pricing.subhead)))), /*#__PURE__*/React.createElement(window.Reveal, {
+  }, /*#__PURE__*/React.createElement(BoldedText, {
+    text: t.pricing.subhead
+  }))))), /*#__PURE__*/React.createElement(window.Reveal, {
     delay: 120
   }, /*#__PURE__*/React.createElement(PricingTabs, {
     categories: t.pricing.categories,

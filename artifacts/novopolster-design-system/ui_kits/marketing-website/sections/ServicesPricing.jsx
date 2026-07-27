@@ -1,3 +1,10 @@
+/* Renders `**text**` as <strong>. Plain strings with no `**` pass through
+   unchanged, so this is a no-op for locales that don't use the markup. */
+function BoldedText({ text }) {
+  const parts = String(text).split('**');
+  return parts.map((part, i) => (i % 2 === 1 ? <strong key={i}>{part}</strong> : part));
+}
+
 function ServicesPricingSection({ t }) {
   const { PricingTabs } = window.NovoPolsterDesignSystem_1b2f21;
   const { isMobile, isNarrow } = window.useViewport();
@@ -27,7 +34,7 @@ function ServicesPricingSection({ t }) {
               {t.pricing.title}
             </h2>
             <p style={{ margin: 0, fontFamily: 'var(--font-body)', fontSize: isMobile ? 16 : 'var(--text-lg)', lineHeight: 'var(--leading-relaxed)', color: 'var(--color-text-primary)' }}>
-              {t.pricing.subhead}
+              <BoldedText text={t.pricing.subhead} />
             </p>
           </div>
         </div></window.Reveal>
