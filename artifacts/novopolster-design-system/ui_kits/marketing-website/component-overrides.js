@@ -812,7 +812,7 @@ function Header({
       });
     },
     style: {
-      height: 17.6,
+      height: 18.48,
       width: 'auto',
       objectFit: 'contain',
       cursor: 'pointer'
