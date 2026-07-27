@@ -68,7 +68,7 @@ window.NP_I18N = {
     pricing: {
       eyebrow: 'Transparente Preise',
       title: 'Der Preis steht vorher fest',
-      subhead: 'Alle Preise als Von–bis-Bereich — kein „Preis auf Anfrage".',
+      subhead: 'Mindestbestellwert — **120 €**. Bei Aufträgen außerhalb Münchens wird die Anfahrt separat berechnet — **0,30 €/km**.',
       categories: [
         { label: 'Sofa', rows: [
           { label: '2-Sitzer', from: '120 €', to: '170 €', desc: 'Tiefenreinigung des Bezugs, Entfernung von Flecken und Gerüchen, Trocknung bis 4 Stunden.' },
@@ -242,7 +242,7 @@ window.NP_I18N = {
     pricing: {
       eyebrow: 'Transparent pricing',
       title: 'The price is set upfront',
-      subhead: 'Every price is a real from–to range — never "price on request".',
+      subhead: 'Minimum order — **€120**. For orders outside Munich, travel is charged separately — **€0.30/km**.',
       categories: [
         { label: 'Sofa', rows: [
           { label: '2-seater', from: '€120', to: '€170', desc: 'Deep cleaning of the upholstery, removal of stains and odours, drying within 4 hours.' },
@@ -590,7 +590,7 @@ window.NP_I18N = {
     pricing: {
       eyebrow: 'Prezzi trasparenti',
       title: 'Il prezzo è chiaro da subito',
-      subhead: 'Ogni prezzo è una fascia da-a reale — mai "prezzo su richiesta".',
+      subhead: 'Ordine minimo — **120 €**. Per ordini fuori Monaco, la trasferta viene calcolata separatamente — **0,30 €/km**.',
       categories: [
         { label: 'Divano', rows: [
           { label: '2 posti', from: '120 €', to: '170 €', desc: 'Pulizia profonda del rivestimento, rimozione di macchie e odori, asciugatura entro 4 ore.' },
@@ -764,7 +764,7 @@ window.NP_I18N = {
     pricing: {
       eyebrow: 'Прозрачные цены',
       title: 'Цена известна заранее',
-      subhead: 'Каждая цена — реальный диапазон «от-до», без «цены по запросу».',
+      subhead: 'Минимальный заказ — **120 €**. Если заказ за пределами Мюнхена, выезд оплачивается отдельно — **0,30 €/км**.',
       categories: [
         { label: 'Диван', rows: [
           { label: '2-местный', from: '120 €', to: '170 €', desc: 'Глубокая очистка обивки, удаление пятен и запахов, сушка до 4 часов.' },
@@ -938,7 +938,7 @@ window.NP_I18N = {
     pricing: {
       eyebrow: 'Şeffaf fiyatlar',
       title: 'Fiyat önceden bellidir',
-      subhead: 'Her fiyat gerçek bir "şu kadardan-şu kadara" aralığıdır — asla "fiyat için sorun" değil.',
+      subhead: 'Minimum sipariş — **120 €**. Münih dışındaki siparişlerde ulaşım ayrıca ücretlendirilir — **0,30 €/km**.',
       categories: [
         { label: 'Koltuk', rows: [
           { label: '2 kişilik', from: '120 €', to: '170 €', desc: 'Döşemenin derinlemesine temizliği, leke ve koku giderimi, 4 saate kadar kurutma.' },
