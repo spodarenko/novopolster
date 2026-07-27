@@ -533,6 +533,9 @@ function MobileMenu({
   base
 }) {
   const [langOpen, setLangOpen] = React.useState(false);
+  const {
+    isMobile
+  } = window.useViewport();
   const current = NP_LANGS.find(l => l.code === lang) || NP_LANGS[0];
   React.useEffect(() => {
     const prev = document.body.style.overflow;
@@ -571,7 +574,7 @@ function MobileMenu({
       background: 'var(--color-bg)',
       display: 'flex',
       flexDirection: 'column',
-      padding: '10px 16px calc(20px + env(safe-area-inset-bottom))',
+      padding: (isMobile ? '10px 16px' : '14px var(--page-gutter)') + ' calc(20px + env(safe-area-inset-bottom))',
       boxSizing: 'border-box'
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -586,7 +589,7 @@ function MobileMenu({
     src: logoSrc,
     alt: "NovoPolster",
     style: {
-      height: 16,
+      height: 21.34,
       width: 'auto',
       objectFit: 'contain'
     }

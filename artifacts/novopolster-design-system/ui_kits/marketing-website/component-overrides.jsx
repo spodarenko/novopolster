@@ -293,6 +293,7 @@ const NP_LANGS = [
    both sized to match the landing-page pill buttons for consistency. */
 function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClose, base }) {
   const [langOpen, setLangOpen] = React.useState(false);
+  const { isMobile } = window.useViewport();
   const current = NP_LANGS.find((l) => l.code === lang) || NP_LANGS[0];
 
   React.useEffect(() => {
@@ -314,11 +315,13 @@ function MobileMenu({ logoSrc, links, lang, onLangChange, onCta, ctaLabel, onClo
     <div style={{
       position: 'fixed', inset: 0, zIndex: 200, height: '100dvh',
       background: 'var(--color-bg)', display: 'flex', flexDirection: 'column',
-      padding: '10px 16px calc(20px + env(safe-area-inset-bottom))', boxSizing: 'border-box',
+      padding: (isMobile ? '10px 16px' : '14px var(--page-gutter)') + ' calc(20px + env(safe-area-inset-bottom))',
+      boxSizing: 'border-box',
     }}>
-      {/* top bar — mirrors the sticky header */}
+      {/* top bar — mirrors the sticky header exactly (same logo height + horizontal
+          padding as Header) so nothing shifts or resizes when the menu opens/closes. */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 44, flexShrink: 0 }}>
-        <img src={logoSrc} alt="NovoPolster" style={{ height: 16, width: 'auto', objectFit: 'contain' }} />
+        <img src={logoSrc} alt="NovoPolster" style={{ height: 21.34, width: 'auto', objectFit: 'contain' }} />
         <button type="button" onClick={onClose} aria-label="Close" style={{
           width: 44, height: 44, border: 0, borderRadius: '50%', background: '#F2ECE5',
           display: 'inline-flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
