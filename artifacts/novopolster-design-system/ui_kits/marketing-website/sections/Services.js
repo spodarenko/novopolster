@@ -116,6 +116,8 @@ function ServicesGridSection({
     moved: false
   });
   const justDraggedRef = React.useRef(false);
+  const pendingRef = React.useRef(0); // px an arrow click still owes the scroller
+
   React.useEffect(() => {
     speedRef.current = isCardHovered ? 0.1875 : 1;
   }, [isCardHovered]);
@@ -131,14 +133,15 @@ function ServicesGridSection({
       block: 'start'
     });
   };
+
+  // Arrow clicks only queue a distance here; the rAF loop below is the single writer of
+  // scrollLeft. Native scrollBy({behavior:'smooth'}) cannot be used -- the loop overwrites
+  // scrollLeft every frame, which silently cancels the browser's smooth scroll. Queuing
+  // instead means repeated clicks accumulate rather than cutting each other off.
   const scrollByCard = dir => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
+    if (!viewportRef.current) return;
     const cardWidth = (isMobile ? 280 : 362) + (isMobile ? 12 : 20);
-    viewport.scrollBy({
-      left: dir * cardWidth,
-      behavior: 'smooth'
-    });
+    pendingRef.current += dir * cardWidth;
   };
 
   // Auto-advance the native scroll position (instead of animating transform) so the same
@@ -146,16 +149,29 @@ function ServicesGridSection({
   // one shared mechanism instead of two competing ones.
   React.useEffect(() => {
     const viewport = viewportRef.current;
-    if (!viewport || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!viewport) return undefined;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let lastTime = null;
     const step = time => {
       if (lastTime === null) lastTime = time;
-      const dt = (time - lastTime) / 1000;
+      const dt = Math.min((time - lastTime) / 1000, 0.05); // clamp: tab-switch gaps shouldn't jump
       lastTime = time;
-      if (!dragRef.current.active && speedRef.current > 0) {
-        const third = viewport.scrollWidth / 3;
-        const pxPerSecond = third / 45; // same 45s full-cycle pace as the previous animation
-        viewport.scrollLeft += pxPerSecond * speedRef.current * dt;
+      if (!dragRef.current.active) {
+        let delta = 0;
+        // Auto-drift. Suppressed under reduced motion, and paused while an arrow click is
+        // still settling so a leftward click isn't partly eaten by the rightward drift.
+        if (!reducedMotion && speedRef.current > 0 && pendingRef.current === 0) {
+          const third = viewport.scrollWidth / 3;
+          delta += third / 45 * speedRef.current * dt; // same 45s full-cycle pace as before
+        }
+        // Ease off whatever the arrows queued, ~1/8s time constant.
+        if (pendingRef.current !== 0) {
+          const chunk = reducedMotion ? pendingRef.current : pendingRef.current * Math.min(1, dt * 8);
+          pendingRef.current -= chunk;
+          if (Math.abs(pendingRef.current) < 0.5) pendingRef.current = 0;
+          delta += chunk;
+        }
+        if (delta) viewport.scrollLeft += delta;
       }
       rafRef.current = requestAnimationFrame(step);
     };
@@ -192,6 +208,7 @@ function ServicesGridSection({
     if (!viewport) return undefined;
     const onPointerDown = e => {
       if (e.pointerType !== 'mouse') return;
+      pendingRef.current = 0; // grabbing overrides an arrow click still in flight
       dragRef.current = {
         active: true,
         startX: e.clientX,
@@ -261,14 +278,21 @@ function ServicesGridSection({
           cursor: pointer;
           transition: background 180ms ease, color 180ms ease, transform 180ms ease;
         }
-        .np-services-arrow:hover {
+        .np-services-arrow:hover:not(:disabled) {
           background: var(--color-text-primary);
           color: var(--color-text-inverse);
         }
-        .np-services-arrow:active {
+        .np-services-arrow:active:not(:disabled) {
           background: var(--neutral-900);
           color: var(--color-text-inverse);
           transform: scale(0.94);
+        }
+        /* Defined for completeness -- the track loops endlessly, so neither arrow ever
+           actually reaches a disabled state in this section. */
+        .np-services-arrow:disabled {
+          background: var(--neutral-100);
+          color: var(--color-text-muted);
+          cursor: default;
         }
         .np-services-arrow svg { width: 20px; height: 20px; display: block; }
         @media (prefers-reduced-motion: reduce) {
