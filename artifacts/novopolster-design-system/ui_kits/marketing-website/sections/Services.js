@@ -267,8 +267,8 @@ function ServicesGridSection({
         .np-services-viewport { scrollbar-width: none; }
         .np-services-viewport::-webkit-scrollbar { display: none; }
 
-        /* Rest / hover / pressed all come from existing tokens: the neutral pill is the
-           section's own tag background, the hover fill is the ink used for body headings. */
+        /* Same rest/hover treatment as the language switcher trigger in the header:
+           neutral-100 pill, darkening one step on hover, icon color unchanged. */
         .np-services-arrow {
           width: 48px; height: 48px; flex-shrink: 0;
           border: none; border-radius: 50%; padding: 0;
@@ -276,15 +276,13 @@ function ServicesGridSection({
           background: var(--neutral-100);
           color: var(--color-text-primary);
           cursor: pointer;
-          transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+          transition: background var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
         }
         .np-services-arrow:hover:not(:disabled) {
-          background: var(--color-text-primary);
-          color: var(--color-text-inverse);
+          background: var(--neutral-200);
         }
         .np-services-arrow:active:not(:disabled) {
-          background: var(--neutral-900);
-          color: var(--color-text-inverse);
+          background: var(--neutral-300);
           transform: scale(0.94);
         }
         /* Defined for completeness -- the track loops endlessly, so neither arrow ever
@@ -381,15 +379,15 @@ function ServicesGridSection({
   }, /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "np-services-arrow",
-    "aria-label": "Previous",
-    onClick: () => scrollByCard(-1)
+    "aria-label": "Scroll left",
+    onClick: () => scrollByCard(1)
   }, /*#__PURE__*/React.createElement(ChevronIcon, {
     dir: "left"
   })), /*#__PURE__*/React.createElement("button", {
     type: "button",
     className: "np-services-arrow",
-    "aria-label": "Next",
-    onClick: () => scrollByCard(1)
+    "aria-label": "Scroll right",
+    onClick: () => scrollByCard(-1)
   }, /*#__PURE__*/React.createElement(ChevronIcon, {
     dir: "right"
   })))));
